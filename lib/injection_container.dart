@@ -4,9 +4,9 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager_app/core/network/network_info.dart';
 import 'package:task_manager_app/core/services/api_service.dart';
-import 'package:task_manager_app/features/kanban/data/datasources/column_remote_data_source.dart';
-import 'package:task_manager_app/features/kanban/data/datasources/project_remote_data_source.dart';
-import 'package:task_manager_app/features/kanban/data/datasources/task_remote_data_source.dart';
+import 'package:task_manager_app/features/kanban/data/datasources/remote/column_remote_data_source.dart';
+import 'package:task_manager_app/features/kanban/data/datasources/remote/project_remote_data_source.dart';
+import 'package:task_manager_app/features/kanban/data/datasources/remote/task_remote_data_source.dart';
 import 'package:task_manager_app/features/kanban/data/repositories_imp/column_repository_imp.dart';
 import 'package:task_manager_app/features/kanban/data/repositories_imp/project_repository_imp.dart';
 import 'package:task_manager_app/features/kanban/data/repositories_imp/task_repository_imp.dart';
@@ -25,7 +25,8 @@ import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/u
 import 'package:task_manager_app/features/kanban/presentation/cubit/column_cubit/column_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/project_cubit/project_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
-import 'package:task_manager_app/features/kanban/presentation/cubit/theme/theme_cubit.dart';
+import 'package:task_manager_app/features/kanban/presentation/cubit/theme_cubit/theme_cubit.dart';
+import 'package:task_manager_app/features/kanban/presentation/cubit/timer_cubit/timer_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -35,6 +36,7 @@ Future<void> setup() async {
   sl.registerFactory(() => ColumnBloc(createColumnUsecase: sl(), getColumnsUsecase: sl(), getTasksUsecase: sl()));
   sl.registerFactory(() => TaskBloc(getTaskUsecase: sl(), getTasksUsecase: sl(), createTaskUsecase: sl(), updateTaskUsecase: sl()));
   sl.registerFactory(() => ThemeBloc());
+  sl.registerFactory(() => TimerBloc());
 
   //Usecases
   sl.registerLazySingleton(() => GetProjectsUsecase(repository: sl())); // project

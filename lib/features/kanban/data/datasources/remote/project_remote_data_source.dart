@@ -26,7 +26,10 @@ class ProjectRemoteDataSourceImp implements ProjectRemoteDataSource {
   }
 
   @override
-  Future<List<Project>> getProjects() {
-    throw UnimplementedError();
+  Future<List<Project>> getProjects() async {
+    var responseData = await apiService.get(Endpoints.PROJECTS);
+    List<Project> projects = responseData.map((e) => Project.fromJson(e)).toList().cast<Project>();
+    projects = projects.where((project) => !(project.isInboxProject ?? false)).toList();
+    return projects;
   }
 }

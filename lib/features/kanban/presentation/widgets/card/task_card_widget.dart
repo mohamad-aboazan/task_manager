@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_app/core/route/route.dart';
+import 'package:task_manager_app/core/utils/constant.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
-import 'package:task_manager_app/features/kanban/presentation/screens/tasks/view_task_screen.dart';
 
 class TaskCard extends StatelessWidget {
   Task task;
@@ -36,33 +35,7 @@ class TaskCard extends StatelessWidget {
                   Text(task.commentCount.toString(), style: Theme.of(context).textTheme.bodySmall),
                 ],
               ),
-              Builder(
-                builder: (context) {
-                  switch (task.priority) {
-                    case 1:
-                      return const Icon(
-                        Icons.keyboard_double_arrow_up_rounded,
-                        color: Colors.greenAccent,
-                      );
-                    case 2:
-                      return const Icon(
-                        Icons.keyboard_arrow_up_rounded,
-                        color: Colors.lightGreenAccent,
-                      );
-                    case 3:
-                      return const Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                        color: Colors.amber,
-                      );
-                    case 4:
-                      return const Icon(
-                        Icons.keyboard_double_arrow_down_rounded,
-                        color: Colors.red,
-                      );
-                  }
-                  return const SizedBox();
-                },
-              )
+              Constant.priorityIcons[(task.priority ?? 1) - 1]
             ],
           )
         ],

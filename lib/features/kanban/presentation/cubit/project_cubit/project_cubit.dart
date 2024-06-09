@@ -14,14 +14,15 @@ class ProjectBloc extends Cubit<ProjectState> {
   final CreateProjectUsecase createProjectUsecase;
 
   Project? currentProject;
-
+  List<Project> projects = [];
   ProjectBloc({required this.createProjectUsecase, required this.getProjectUsecase, required this.getProjectsUsecase}) : super(InitialState());
 
-  void getProjects() async {
+  Future getProjects() async {
     try {
       emit(GetProjectsState(baseResponse: BaseResponse.loading()));
-      await Future.delayed(const Duration(seconds: 2));
-      emit(GetProjectsState(baseResponse: BaseResponse.success(1)));
+      projects = await getProjectsUsecase.execute();
+      if (projects.isNotEmpty) currentProject = projects.first;
+      emit(GetProjectsState(baseResponse: BaseResponse.success(projects)));
     } catch (e) {
       emit(GetProjectsState(baseResponse: BaseResponse.error(e.toString())));
     }
@@ -32,6 +33,7 @@ class ProjectBloc extends Cubit<ProjectState> {
       emit(CreateProjectState(baseResponse: BaseResponse.loading()));
       Project project = await createProjectUsecase.execute(createProjectDto: createProjectDto);
       currentProject = project;
+      projects.add(project);
       emit(CreateProjectState(baseResponse: BaseResponse.success(project)));
     } catch (e) {
       emit(CreateProjectState(baseResponse: BaseResponse.error(e.toString())));

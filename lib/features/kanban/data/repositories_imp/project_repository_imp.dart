@@ -1,5 +1,5 @@
 import 'package:task_manager_app/core/network/network_info.dart';
-import 'package:task_manager_app/features/kanban/data/datasources/project_remote_data_source.dart';
+import 'package:task_manager_app/features/kanban/data/datasources/remote/project_remote_data_source.dart';
 import 'package:task_manager_app/features/kanban/data/dto/create_project_dto.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/project.dart';
 import 'package:task_manager_app/features/kanban/domain/repository/project_repository.dart';
@@ -21,7 +21,7 @@ class ProjectRepositoryImpl implements ProjectRepository {
   }
 
   @override
-  Future<List<Project>> getProjects() {
-    throw UnimplementedError();
+  Future<List<Project>> getProjects() async {
+    return await projectRemoteDataSource.getProjects();
   }
 }

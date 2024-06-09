@@ -4,14 +4,9 @@ class UpdateTaskDto {
   String? dueDatetime;
   List<String>? labels;
   int? priority;
-
-  UpdateTaskDto({
-    this.content,
-    this.description,
-    this.dueDatetime,
-    this.labels,
-    this.priority,
-  });
+  int? duration;
+  String? durationUnit;
+  UpdateTaskDto({this.content, this.description, this.dueDatetime, this.labels, this.priority, this.duration, this.durationUnit});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
@@ -20,6 +15,8 @@ class UpdateTaskDto {
     if (dueDatetime != null) data['due_datetime'] = dueDatetime;
     if (labels != null) data['labels'] = labels;
     if (priority != null) data['priority'] = priority;
+    if (durationUnit != null) data['duration_unit'] = durationUnit;
+    if (duration != null) data['duration'] = duration;
     return data;
   }
 }

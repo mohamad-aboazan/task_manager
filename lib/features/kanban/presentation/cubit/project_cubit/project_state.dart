@@ -10,6 +10,6 @@ class CreateProjectState extends ProjectState {
 }
 
 class GetProjectsState extends ProjectState {
-  BaseResponse baseResponse;
+  BaseResponse<List<Project>> baseResponse;
   GetProjectsState({required this.baseResponse});
 }

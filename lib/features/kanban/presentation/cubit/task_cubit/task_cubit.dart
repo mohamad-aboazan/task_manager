@@ -49,16 +49,19 @@ class TaskBloc extends Cubit<TaskState> {
     tasks[index].due?.datetime = updateTaskDto.dueDatetime ?? tasks[index].due?.datetime;
     tasks[index].labels = updateTaskDto.labels ?? tasks[index].labels;
     tasks[index].priority = updateTaskDto.priority ?? tasks[index].priority;
+    tasks[index].duration?.amount = updateTaskDto.duration ?? tasks[index].duration?.amount;
+    tasks[index].duration?.unit = updateTaskDto.durationUnit ?? tasks[index].duration?.unit;
+    tasks[index].priority = updateTaskDto.priority ?? tasks[index].priority;
   }
 
   void getTasks(String projectId) async {
     try {
-      emit(CreateTaskState(baseResponse: BaseResponse.loading()));
+      emit(GetTasksState(baseResponse: BaseResponse.loading()));
       List<Task> tasks = await getTasksUsecase.execute(projectId: projectId);
       this.tasks = tasks;
-      emit(CreateTaskState(baseResponse: BaseResponse.success(tasks)));
+      emit(GetTasksState(baseResponse: BaseResponse.success(tasks)));
     } catch (e) {
-      emit(CreateTaskState(baseResponse: BaseResponse.error(e.toString())));
+      emit(GetTasksState(baseResponse: BaseResponse.error(e.toString())));
     }
   }
 }

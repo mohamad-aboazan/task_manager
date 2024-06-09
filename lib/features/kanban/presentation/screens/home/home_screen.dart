@@ -13,9 +13,7 @@ import 'package:task_manager_app/features/kanban/presentation/screens/colunms/cr
 import 'package:task_manager_app/features/kanban/presentation/widgets/column_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.title});
-
-  final String title;
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

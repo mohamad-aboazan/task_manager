@@ -1,5 +1,5 @@
 import 'package:task_manager_app/core/network/network_info.dart';
-import 'package:task_manager_app/features/kanban/data/datasources/column_remote_data_source.dart';
+import 'package:task_manager_app/features/kanban/data/datasources/remote/column_remote_data_source.dart';
 import 'package:task_manager_app/features/kanban/data/dto/create_column_dto.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/column.dart';
 import 'package:task_manager_app/features/kanban/domain/repository/column_repository.dart';

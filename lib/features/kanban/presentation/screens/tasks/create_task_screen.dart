@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
@@ -27,6 +28,8 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
   TextEditingController contentController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController dateTimeController = TextEditingController();
+  TextEditingController durationController = TextEditingController();
+  TextEditingController unitController = TextEditingController();
   TextEditingController progressController = TextEditingController();
   TextEditingController priorityController = TextEditingController();
 
@@ -34,6 +37,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
   void initState() {
     progressController.text = widget.columnEntity?.name ?? '';
     priorityController.text = "2";
+    unitController.text = "minute";
     super.initState();
   }
 
@@ -53,7 +57,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                 TextFormField(
                   controller: contentController,
                   validator: (value) => Validation.isEmptyValidation(value),
-                  decoration: const InputDecoration(labelText: 'Content'),
+                  decoration: const InputDecoration(labelText: 'Title'),
                 ),
                 const SizedBox(height: 20),
                 //========================== Description input ============================
@@ -76,7 +80,30 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                   decoration: const InputDecoration(labelText: 'Start date and time', suffixIcon: Icon(Icons.date_range_rounded)),
                 ),
                 const SizedBox(height: 20),
+                //========================== Duration input ============================
+
+                TextFormField(
+                  controller: durationController,
+                  validator: (value) => Validation.isEmptyValidation(value),
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                  decoration: const InputDecoration(labelText: 'Duration', suffixIcon: Icon(Icons.timer)),
+                ),
+                const SizedBox(height: 20),
+                //========================== Unit input ============================
+
+                DropdownMenu(
+                    expandedInsets: EdgeInsets.zero,
+                    controller: unitController,
+                    label: const Text("Unit"),
+                    dropdownMenuEntries: ["minute", "day"]
+                        .map(
+                          (e) => DropdownMenuEntry(value: e, label: e),
+                        )
+                        .toList()),
+                const SizedBox(height: 20),
                 //========================== Progress input ============================
+
                 DropdownMenu(
                     expandedInsets: EdgeInsets.zero,
                     controller: progressController,
@@ -89,6 +116,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                         )
                         .toList()),
                 const SizedBox(height: 20),
+
                 //========================== priority input ============================
                 PriorityDropdownWidget(priorityController: priorityController),
                 const SizedBox(height: 20),
@@ -129,6 +157,8 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                                     priority: int.parse(
                                       priorityController.text,
                                     ),
+                                    duration: int.parse(durationController.text),
+                                    durationUnit: unitController.text,
                                   ),
                                 );
                           }

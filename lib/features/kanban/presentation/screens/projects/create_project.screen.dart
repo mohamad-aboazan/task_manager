@@ -7,7 +7,7 @@ import 'package:task_manager_app/core/utils/validation.dart';
 import 'package:task_manager_app/features/kanban/presentation/screens/home/home_screen.dart';
 import 'package:task_manager_app/features/kanban/data/dto/create_project_dto.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/project_cubit/project_cubit.dart';
-import 'package:task_manager_app/features/kanban/presentation/cubit/theme/theme_cubit.dart';
+import 'package:task_manager_app/features/kanban/presentation/cubit/theme_cubit/theme_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/widgets/dialog/color_picker_dialog.dart';
 
 class CreateProjectScreen extends StatefulWidget {
@@ -79,7 +79,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                       if (current is CreateProjectState) {
                         switch (current.baseResponse.status) {
                           case Status.success:
-                            AppRoutes.pushAndRemoveUntil(context, HomeScreen(title: projectNameController.text));
+                            AppRoutes.pushAndRemoveUntil(context, const HomeScreen());
                             context.read<ThemeBloc>().changeTheme(color: Color(_selectedColor));
 
                           case Status.error:

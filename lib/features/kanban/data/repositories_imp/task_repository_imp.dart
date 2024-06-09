@@ -1,5 +1,5 @@
 import 'package:task_manager_app/core/network/network_info.dart';
-import 'package:task_manager_app/features/kanban/data/datasources/task_remote_data_source.dart';
+import 'package:task_manager_app/features/kanban/data/datasources/remote/task_remote_data_source.dart';
 import 'package:task_manager_app/features/kanban/data/dto/update_task_dto.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
 import 'package:task_manager_app/features/kanban/domain/repository/task_repository.dart';

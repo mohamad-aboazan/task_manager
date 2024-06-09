@@ -29,9 +29,7 @@ class _DraggableTaskCardState extends State<DraggableTaskCard> {
         ),
         onDragCompleted: () {},
         onDragStarted: () {
-          setState(() {
-            scrollingOffset = widget.scrollController!.offset;
-          });
+          scrollingOffset = widget.scrollController!.offset;
         },
         onDragEnd: (details) {
           widget.scrollController!.jumpTo(

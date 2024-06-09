@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task_manager_app/core/entities/base_state.dart';
 import 'package:task_manager_app/core/route/route.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/column.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
@@ -63,6 +64,7 @@ class _ColumnWidgetState extends State<ColumnWidget> {
                 (task) => task.labels!.contains(widget.columnEntity.name),
               )
               .toList();
+
           return Column(
             children: [
               Container(
@@ -82,19 +84,27 @@ class _ColumnWidgetState extends State<ColumnWidget> {
                 ),
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  controller: _horizontalScrollController,
-                  scrollDirection: Axis.horizontal,
-                  child: Column(
-                    children: [
-                      for (int i = 0; i < tasks.length; i++)
-                        DraggableTaskCard(
-                          task: tasks[i],
-                          scrollController: widget.scrollController,
-                        )
-                    ],
-                  ),
-                ),
+                child: Builder(builder: (context) {
+                  if (state is GetTasksState && state.baseResponse.status == Status.loading) {
+                    print(state);
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return SingleChildScrollView(
+                    controller: _horizontalScrollController,
+                    scrollDirection: Axis.horizontal,
+                    child: Column(
+                      children: [
+                        for (int i = 0; i < tasks.length; i++)
+                          DraggableTaskCard(
+                            task: tasks[i],
+                            scrollController: widget.scrollController,
+                          )
+                      ],
+                    ),
+                  );
+                }),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
