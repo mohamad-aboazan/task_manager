@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
 import 'package:task_manager_app/core/route/route.dart';
-import 'package:task_manager_app/core/sharedwdigets/app_snackbar.dart';
+import 'package:task_manager_app/core/sharedwidgets/app_snackbar.dart';
 import 'package:task_manager_app/core/utils/validation.dart';
 import 'package:task_manager_app/features/kanban/presentation/screens/home/home_screen.dart';
 import 'package:task_manager_app/features/kanban/data/dto/create_project_dto.dart';

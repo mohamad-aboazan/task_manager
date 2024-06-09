@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
 import 'package:task_manager_app/core/route/route.dart';
-import 'package:task_manager_app/core/sharedwdigets/app_snackbar.dart';
+import 'package:task_manager_app/core/sharedwidgets/app_snackbar.dart';
+import 'package:task_manager_app/core/sharedwidgets/date_time_picker.dart';
 import 'package:task_manager_app/core/utils/date_converter.dart';
 import 'package:task_manager_app/core/utils/validation.dart';
 import 'package:task_manager_app/features/kanban/data/dto/update_task_dto.dart';
@@ -10,6 +11,7 @@ import 'package:task_manager_app/features/kanban/domain/entities/column.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart' as t;
 import 'package:task_manager_app/features/kanban/presentation/cubit/column_cubit/column_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
+import 'package:task_manager_app/features/kanban/presentation/widgets/priority_dropdown_widget.dart';
 
 class ViewTaskScreen extends StatefulWidget {
   final t.Task task;
@@ -38,34 +40,6 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
     priorityController = TextEditingController(text: widget.task.priority.toString());
   }
 
-  void _editDateTimeField() async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.parse(widget.task.due?.datetime ?? ''),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 365)),
-    );
-
-    if (pickedDate != null) {
-      // final TimeOfDay? pickedTime = await showTimePicker(
-      //   context: context,
-      //   initialTime: TimeOfDay.fromDateTime(DateTime.parse(widget.task.due?.datetime ?? '')),
-      // );
-
-      // if (pickedTime != null) {
-      //   final DateTime dateTime = DateTime(
-      //     pickedDate.year,
-      //     pickedDate.month,
-      //     pickedDate.day,
-      //     pickedTime.hour,
-      //     pickedTime.minute,
-      //   );
-      //   dateTimeController.text = DateFormat('yyyy-MM-dd hh:mm a').format(dateTime);
-      //   setState(() {});
-      // }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,14 +52,14 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                // Content input
+                //============================ Content input ============================
                 TextFormField(
                   controller: contentController,
                   validator: (value) => Validation.isEmptyValidation(value),
                   decoration: const InputDecoration(labelText: 'Content'),
                 ),
                 const SizedBox(height: 20),
-                // Description input
+                //============================ Description input ============================
                 TextFormField(
                   controller: descriptionController,
                   maxLines: 100,
@@ -94,14 +68,16 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
                   decoration: const InputDecoration(labelText: 'Description'),
                 ),
                 const SizedBox(height: 20),
-                // Date and Time input
+                //============================ Start date and time input ============================
                 TextFormField(
                   controller: dateTimeController,
                   readOnly: true,
-                  onTap: _editDateTimeField,
+                  onTap: () async {
+                    dateTimeController.text = await AppDateTimePicker.show(context);
+                  },
                   validator: (value) => Validation.isEmptyValidation(value),
                   decoration: const InputDecoration(
-                    labelText: 'Date and time',
+                    labelText: 'Start date and time',
                     suffixIcon: Icon(Icons.date_range_rounded),
                   ),
                 ),
@@ -121,20 +97,10 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
                 const SizedBox(height: 20),
                 //========================== priority input ============================
 
-                DropdownMenu(
-                  expandedInsets: EdgeInsets.zero,
-                  controller: priorityController,
-                  label: const Text("priority"),
-                  dropdownMenuEntries: const [
-                    DropdownMenuEntry(value: 1, label: "1"),
-                    DropdownMenuEntry(value: 2, label: "2"),
-                    DropdownMenuEntry(value: 3, label: "3"),
-                    DropdownMenuEntry(value: 4, label: "4"),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                const SizedBox(height: 20),
-                // Save Changes button
+                PriorityDropdownWidget(priorityController: priorityController),
+
+                const SizedBox(height: 40),
+                //========================== Save Changes button ==========================
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 50,
@@ -143,7 +109,6 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
                       if (current is UpdateTaskState) {
                         switch (current.baseResponse.status) {
                           case Status.success:
-                            AppSnackBar.show(context: context, message: "Updated Successfully", status: SnackBarStatus.success);
                             AppRoutes.pop(context);
                             break;
                           case Status.error:
@@ -158,8 +123,6 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
                       return ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            // Uncomment and implement the update task functionality as needed.
-
                             context.read<TaskBloc>().updateTask(
                                 id: widget.task.id ?? '',
                                 updateTaskDto: UpdateTaskDto(

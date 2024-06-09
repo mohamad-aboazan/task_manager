@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
-import 'package:task_manager_app/core/sharedwdigets/app_snackbar.dart';
+import 'package:task_manager_app/core/sharedwidgets/app_snackbar.dart';
 import 'package:task_manager_app/core/utils/validation.dart';
 import 'package:task_manager_app/features/kanban/data/dto/create_column_dto.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/column_cubit/column_cubit.dart';

@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
 import 'package:task_manager_app/core/route/route.dart';
-import 'package:task_manager_app/core/sharedwdigets/app_snackbar.dart';
+import 'package:task_manager_app/core/sharedwidgets/app_snackbar.dart';
+import 'package:task_manager_app/core/sharedwidgets/date_time_picker.dart';
 import 'package:task_manager_app/core/utils/date_converter.dart';
 import 'package:task_manager_app/core/utils/validation.dart';
 import 'package:task_manager_app/features/kanban/data/dto/create_task_dto.dart';
@@ -11,6 +12,7 @@ import 'package:task_manager_app/features/kanban/domain/entities/column.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/column_cubit/column_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/project_cubit/project_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
+import 'package:task_manager_app/features/kanban/presentation/widgets/priority_dropdown_widget.dart';
 
 class CreateTaskScreen extends StatefulWidget {
   ColumnEntity? columnEntity;
@@ -27,6 +29,13 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
   TextEditingController dateTimeController = TextEditingController();
   TextEditingController progressController = TextEditingController();
   TextEditingController priorityController = TextEditingController();
+
+  @override
+  void initState() {
+    progressController.text = widget.columnEntity?.name ?? '';
+    priorityController.text = "2";
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,16 +69,11 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                 TextFormField(
                   controller: dateTimeController,
                   readOnly: true,
-                  onTap: () {
-                    showDatePicker(context: context, firstDate: DateTime.now(), lastDate: DateTime.now().add(const Duration(days: 365))).then((e) async {
-                      var time = await showTimePicker(context: context, initialTime: TimeOfDay.now());
-                      if (e == null || time == null) return '';
-                      final DateTime dateTime = DateTime(e.year, e.month, e.day, time.hour, time.minute);
-                      dateTimeController.text = DateFormat('yyyy-MM-dd hh:mm a').format(dateTime);
-                    });
+                  onTap: () async {
+                    dateTimeController.text = await AppDateTimePicker.show(context);
                   },
                   validator: (value) => Validation.isEmptyValidation(value),
-                  decoration: const InputDecoration(labelText: 'Date and time', suffixIcon: Icon(Icons.date_range_rounded)),
+                  decoration: const InputDecoration(labelText: 'Start date and time', suffixIcon: Icon(Icons.date_range_rounded)),
                 ),
                 const SizedBox(height: 20),
                 //========================== Progress input ============================
@@ -77,7 +81,6 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                     expandedInsets: EdgeInsets.zero,
                     controller: progressController,
                     label: const Text("Task Progress"),
-                    initialSelection: widget.columnEntity?.name.toString(),
                     dropdownMenuEntries: context
                         .read<ColumnBloc>()
                         .colunmEntities
@@ -87,18 +90,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                         .toList()),
                 const SizedBox(height: 20),
                 //========================== priority input ============================
-
-                DropdownMenu(
-                  expandedInsets: EdgeInsets.zero,
-                  controller: priorityController,
-                  label: const Text("priority"),
-                  dropdownMenuEntries: const [
-                    DropdownMenuEntry(value: 1, label: "1"),
-                    DropdownMenuEntry(value: 2, label: "2"),
-                    DropdownMenuEntry(value: 3, label: "3"),
-                    DropdownMenuEntry(value: 4, label: "4"),
-                  ],
-                ),
+                PriorityDropdownWidget(priorityController: priorityController),
                 const SizedBox(height: 20),
 
                 //========================== Create button ============================

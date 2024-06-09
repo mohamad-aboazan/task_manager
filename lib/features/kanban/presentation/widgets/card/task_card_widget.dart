@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_app/core/route/route.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
+import 'package:task_manager_app/features/kanban/presentation/screens/tasks/view_task_screen.dart';
 
 class TaskCard extends StatelessWidget {
   Task task;
