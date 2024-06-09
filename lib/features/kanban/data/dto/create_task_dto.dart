@@ -1,16 +1,16 @@
 class CreateTaskDto {
   String content;
-  String project_id;
+  String projectId;
   String description;
-  Due due;
+  String dueDatetime;
   List<String> labels;
   int priority;
 
   CreateTaskDto({
     required this.content,
     required this.description,
-    required this.project_id,
-    required this.due,
+    required this.projectId,
+    required this.dueDatetime,
     required this.labels,
     required this.priority,
   });
@@ -19,8 +19,8 @@ class CreateTaskDto {
     return CreateTaskDto(
       content: json['content'],
       description: json['description'],
-      project_id: json['project_id'],
-      due: Due.fromJson(json['due']),
+      projectId: json['projectId'],
+      dueDatetime: json['dueDatetime'],
       labels: List<String>.from(json['labels']),
       priority: json['priority'],
     );
@@ -30,30 +30,10 @@ class CreateTaskDto {
     return {
       'content': content,
       'description': description,
-      'project_id': project_id,
-      'due': due.toJson(),
+      'project_id': projectId,
+      'due_datetime': dueDatetime,
       'labels': labels,
       'priority': priority,
-    };
-  }
-}
-
-class Due {
-  String datetime;
-
-  Due({
-    required this.datetime,
-  });
-
-  factory Due.fromJson(Map<String, dynamic> json) {
-    return Due(
-      datetime: json['datetime'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'datetime': datetime,
     };
   }
 }

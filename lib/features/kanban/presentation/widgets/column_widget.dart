@@ -9,11 +9,10 @@ import 'package:task_manager_app/features/kanban/presentation/widgets/task_card_
 
 class ColumnWidget extends StatefulWidget {
   final ColumnEntity columnEntity;
-  final List<ColumnEntity>? columnEntities;
   ScrollController? scrollController;
   int id;
 
-  ColumnWidget({super.key, required this.columnEntity, this.columnEntities, required this.scrollController, required this.id});
+  ColumnWidget({super.key, required this.columnEntity, required this.scrollController, required this.id});
 
   @override
   State<ColumnWidget> createState() => _ColumnWidgetState();
@@ -134,7 +133,6 @@ class _ColumnWidgetState extends State<ColumnWidget> {
                     AppRoutes.push(
                         context,
                         CreateTaskScreen(
-                          colunmEntities: widget.columnEntities,
                           columnEntity: widget.columnEntity,
                         ));
                   },

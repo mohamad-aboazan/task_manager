@@ -5,7 +5,6 @@ import 'package:task_manager_app/core/route/route.dart';
 import 'package:task_manager_app/core/sharedwdigets/app_drawer.dart';
 import 'package:task_manager_app/core/sharedwdigets/app_snackbar.dart';
 import 'package:task_manager_app/features/kanban/data/dto/update_task_dto.dart';
-import 'package:task_manager_app/features/kanban/domain/entities/column.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/column_cubit/column_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/project_cubit/project_cubit.dart';
@@ -81,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             details.data.labels?.clear();
                             details.data.labels?.add(state.baseResponse.data![i].name ?? '');
                             context.read<TaskBloc>().tasks.add(details.data);
-                            context.read<TaskBloc>().updateTask(details.data.id ?? '', UpdateTaskDto(labels: details.data.labels ?? []));
+                            context.read<TaskBloc>().updateTask(id: details.data.id ?? '', updateTaskDto: UpdateTaskDto(labels: details.data.labels ?? []));
                           }, builder: (
                             BuildContext context,
                             List<dynamic> accepted,
@@ -89,7 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ) {
                             return ColumnWidget(
                               columnEntity: state.baseResponse.data![i],
-                              columnEntities: state.baseResponse.data,
                               scrollController: scrollController,
                               id: i,
                             );

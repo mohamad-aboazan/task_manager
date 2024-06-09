@@ -29,7 +29,7 @@ class Task {
     isCompleted = json['is_completed'];
     content = json['content'];
     description = json['description'];
-    due = json['due'] != null ? new Due.fromJson(json['due']) : null;
+    due = json['due'] != null ? Due.fromJson(json['due']) : null;
     duration = json['duration'] != null ? Duration.fromJson(json['duration']) : null;
     id = json['id'];
     labels = json['labels'].cast<String>();
@@ -101,7 +101,7 @@ class Duration {
   int? amount;
   String? unit;
 
-  Duration({this.amount, this.unit, required int seconds});
+  Duration({this.amount, this.unit, required int seconds, required int days});
 
   Duration.fromJson(Map<String, dynamic> json) {
     amount = json['amount'];
@@ -109,7 +109,7 @@ class Duration {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['amount'] = amount;
     data['unit'] = unit;
     return data;

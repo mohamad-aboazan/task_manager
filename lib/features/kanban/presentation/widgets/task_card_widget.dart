@@ -58,7 +58,7 @@ class TaskCard extends StatelessWidget {
                         color: Colors.red,
                       );
                   }
-                  return SizedBox();
+                  return const SizedBox();
                 },
               )
             ],

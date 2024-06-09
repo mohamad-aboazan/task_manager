@@ -31,14 +31,24 @@ class TaskBloc extends Cubit<TaskState> {
     }
   }
 
-  void updateTask(String id, UpdateTaskDto createTaskDto) async {
+  void updateTask({required String id, required UpdateTaskDto updateTaskDto}) async {
     try {
+      _localTaskUpdate(id: id, updateTaskDto: updateTaskDto);
       emit(UpdateTaskState(baseResponse: BaseResponse.success("Updated Localy")));
-      Task task = await updateTaskUsecase.execute(id: id, updateTaskDto: createTaskDto);
+      Task task = await updateTaskUsecase.execute(id: id, updateTaskDto: updateTaskDto);
       emit(UpdateTaskState(baseResponse: BaseResponse.success(task)));
     } catch (e) {
       emit(UpdateTaskState(baseResponse: BaseResponse.error(e.toString())));
     }
+  }
+
+  _localTaskUpdate({required String id, required UpdateTaskDto updateTaskDto}) {
+    var index = tasks.indexWhere((task) => task.id == id);
+    tasks[index].content = updateTaskDto.content ?? tasks[index].content;
+    tasks[index].description = updateTaskDto.description ?? tasks[index].description;
+    tasks[index].due?.datetime = updateTaskDto.dueDatetime ?? tasks[index].due?.datetime;
+    tasks[index].labels = updateTaskDto.labels ?? tasks[index].labels;
+    tasks[index].priority = updateTaskDto.priority ?? tasks[index].priority;
   }
 
   void getTasks(String projectId) async {
