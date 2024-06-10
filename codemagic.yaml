@@ -1,0 +1,16 @@
+workflows:
+  flutter_build:
+    name: Flutter Build APK
+    environment:
+      flutter: stable
+    scripts:
+      - flutter pub get
+      - flutter build apk --release
+    artifacts:
+      - build/**/outputs/**/*.apk
+    email:
+      recipients:
+        - mohamadaboazan963@gmail.com
+        - mohamad@gmail.com
+      subject: "APK Build Complete"
+      body: "Your APK build is complete. Please find the attached APK file."
