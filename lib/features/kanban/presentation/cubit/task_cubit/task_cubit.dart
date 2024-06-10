@@ -1,9 +1,13 @@
 import 'package:bloc/bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
 import 'package:task_manager_app/core/services/local_notification_service.dart';
+import 'package:task_manager_app/core/utils/log_content.dart';
 import 'package:task_manager_app/features/kanban/data/dto/create_task_dto.dart';
 import 'package:task_manager_app/features/kanban/data/dto/update_task_dto.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
+import 'package:task_manager_app/features/kanban/domain/usercase/task_log_usecase/get_task_logs_uescas.dart';
+import 'package:task_manager_app/features/kanban/domain/usercase/task_log_usecase/new_task_log_uescase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/create_task_usecase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/get_task_usecase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/get_tasks_usecase.dart';
@@ -18,10 +22,26 @@ class TaskBloc extends Cubit<TaskState> {
   final CreateTaskUsecase createTaskUsecase;
   final UpdateTaskUsecase updateTaskUsecase;
   final DeleteTaskUsecase deleteTaskUsecase;
+  final NewTaskLogUsecase newTaskLogUsecase;
+  final GetTasksLogsUescas getTaskslogsUsecase;
   final LocalNotificationService localNotificationService;
   List<Task> tasks = [];
+  final Map<String, List<String>> _taskHistories = {};
 
-  TaskBloc({required this.createTaskUsecase, required this.updateTaskUsecase, required this.getTaskUsecase, required this.getTasksUsecase, required this.deleteTaskUsecase, required this.localNotificationService}) : super(InitialState());
+  TaskBloc({
+    required this.createTaskUsecase,
+    required this.updateTaskUsecase,
+    required this.getTaskUsecase,
+    required this.getTasksUsecase,
+    required this.deleteTaskUsecase,
+    required this.getTaskslogsUsecase,
+    required this.newTaskLogUsecase,
+    required this.localNotificationService,
+  }) : super(InitialState()) {
+    getTaskslogsUsecase.execute().then((histories) {
+      _taskHistories.addAll(histories.map((key, value) => MapEntry(key.toString(), value)));
+    });
+  }
 
   void createTask(CreateTaskDto createTaskDto) async {
     try {
@@ -32,6 +52,7 @@ class TaskBloc extends Cubit<TaskState> {
         _scheduleNotification(task);
       }
       emit(CreateTaskState(baseResponse: BaseResponse.success(task)));
+      newLog(taskId: task.id ?? '', taskLogType: TaskLogTypes.taskCreated);
     } catch (e) {
       emit(CreateTaskState(baseResponse: BaseResponse.error(e.toString())));
     }
@@ -46,6 +67,7 @@ class TaskBloc extends Cubit<TaskState> {
         _updateScheduleNotification(task);
       }
       emit(UpdateTaskState(baseResponse: BaseResponse.success(task)));
+      newLog(taskId: task.id ?? '', taskLogType: TaskLogTypes.taskUpdated);
     } catch (e) {
       emit(UpdateTaskState(baseResponse: BaseResponse.error(e.toString())));
     }
@@ -114,5 +136,18 @@ class TaskBloc extends Cubit<TaskState> {
 
   void _deleteScheduleNotification(Task task) {
     localNotificationService.cancelNotification(task.getShortId());
+  }
+
+  void newLog({required String taskId, required TaskLogTypes taskLogType}) async {
+    if (_taskHistories[taskId] == null) {
+      _taskHistories[taskId] = [LogContent.contentGenerator(taskLogType)];
+    } else {
+      _taskHistories[taskId]?.add(LogContent.contentGenerator(taskLogType));
+    }
+    await newTaskLogUsecase.execute(taskId: taskId, taskLogType: taskLogType); // Save histories to Hive
+  }
+
+  List<String>? getTaskHistories(String taskId) {
+    return _taskHistories[taskId];
   }
 }

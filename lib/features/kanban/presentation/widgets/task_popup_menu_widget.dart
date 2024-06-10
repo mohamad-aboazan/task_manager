@@ -4,6 +4,7 @@ import 'package:task_manager_app/core/entities/base_state.dart';
 import 'package:task_manager_app/core/route/route.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
+import 'package:task_manager_app/features/kanban/presentation/screens/tasks/task_history_screen.dart';
 
 class TaskPopupMenuButton extends StatelessWidget {
   Task task;
@@ -13,24 +14,13 @@ class TaskPopupMenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton<int>(
       icon: const Icon(Icons.more_vert_rounded),
-      onSelected: (value) {
-        // Handle menu item selection
-        switch (value) {
-          case 0:
-            print('Option 1 selected');
-            break;
-          case 1:
-            print('Option 2 selected');
-            break;
-          case 2:
-            print('Option 3 selected');
-            break;
-        }
-      },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
-        const PopupMenuItem<int>(
+        PopupMenuItem<int>(
           value: 1,
-          child: Text('History'),
+          onTap: () {
+            AppRoutes.push(context, TaskHistoryScreen(task: task));
+          },
+          child: const Text('History'),
         ),
         PopupMenuItem<int>(
           value: 2,

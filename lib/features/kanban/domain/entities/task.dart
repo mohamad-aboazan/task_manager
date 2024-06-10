@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:task_manager_app/features/kanban/domain/entities/comment.dart';
 
 part 'task.g.dart';
 
@@ -40,27 +41,10 @@ class Task extends HiveObject {
   String? parentId;
   @HiveField(17)
   String? url;
+  @HiveField(18)
+  List<Comment>? comments;
 
-  Task({
-    this.creatorId,
-    this.createdAt,
-    this.assigneeId,
-    this.assignerId,
-    this.commentCount,
-    this.isCompleted,
-    this.content,
-    this.description,
-    this.due,
-    this.duration,
-    this.id,
-    this.labels,
-    this.order,
-    this.priority,
-    this.projectId,
-    this.sectionId,
-    this.parentId,
-    this.url,
-  });
+  Task({this.creatorId, this.createdAt, this.assigneeId, this.assignerId, this.commentCount, this.isCompleted, this.content, this.description, this.due, this.duration, this.id, this.labels, this.order, this.priority, this.projectId, this.sectionId, this.parentId, this.url, this.comments});
 
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
@@ -82,34 +66,8 @@ class Task extends HiveObject {
       sectionId: json['section_id'],
       parentId: json['parent_id'],
       url: json['url'],
+      comments: [],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['creator_id'] = creatorId;
-    data['created_at'] = createdAt;
-    data['assignee_id'] = assigneeId;
-    data['assigner_id'] = assignerId;
-    data['comment_count'] = commentCount;
-    data['is_completed'] = isCompleted;
-    data['content'] = content;
-    data['description'] = description;
-    if (due != null) {
-      data['due'] = due!.toJson();
-    }
-    if (duration != null) {
-      data['duration'] = duration!.toJson();
-    }
-    data['id'] = id;
-    data['labels'] = labels;
-    data['order'] = order;
-    data['priority'] = priority;
-    data['project_id'] = projectId;
-    data['section_id'] = sectionId;
-    data['parent_id'] = parentId;
-    data['url'] = url;
-    return data;
   }
 
   int getShortId() {
@@ -141,16 +99,6 @@ class Due extends HiveObject {
       timezone: json['timezone'],
     );
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['date'] = date;
-    data['is_recurring'] = isRecurring;
-    data['datetime'] = datetime;
-    data['string'] = string;
-    data['timezone'] = timezone;
-    return data;
-  }
 }
 
 @HiveType(typeId: 2)
@@ -167,12 +115,5 @@ class Duration extends HiveObject {
       amount: json['amount'],
       unit: json['unit'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['amount'] = amount;
-    data['unit'] = unit;
-    return data;
   }
 }

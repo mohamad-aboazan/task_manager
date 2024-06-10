@@ -12,8 +12,6 @@ class Project {
   String? url;
   String? viewStyle;
 
-  Project({this.id, this.parentId, this.order, this.color, this.name, this.commentCount, this.isShared, this.isFavorite, this.isInboxProject, this.isTeamInbox, this.url, this.viewStyle});
-
   Project.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     parentId = json['parent_id'];
@@ -27,22 +25,5 @@ class Project {
     isTeamInbox = json['is_team_inbox'];
     url = json['url'];
     viewStyle = json['view_style'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = id;
-    data['parent_id'] = parentId;
-    data['order'] = order;
-    data['color'] = color;
-    data['name'] = name;
-    data['comment_count'] = commentCount;
-    data['is_shared'] = isShared;
-    data['is_favorite'] = isFavorite;
-    data['is_inbox_project'] = isInboxProject;
-    data['is_team_inbox'] = isTeamInbox;
-    data['url'] = url;
-    data['view_style'] = viewStyle;
-    return data;
   }
 }

@@ -5,26 +5,39 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager_app/core/network/network_info.dart';
 import 'package:task_manager_app/core/services/api_service.dart';
 import 'package:task_manager_app/core/services/local_notification_service.dart';
+import 'package:task_manager_app/features/kanban/data/datasources/local/task_log_local_data_source.dart';
 import 'package:task_manager_app/features/kanban/data/datasources/remote/column_remote_data_source.dart';
+import 'package:task_manager_app/features/kanban/data/datasources/remote/comment_remote_data_sourc.dart';
 import 'package:task_manager_app/features/kanban/data/datasources/remote/project_remote_data_source.dart';
 import 'package:task_manager_app/features/kanban/data/datasources/remote/task_remote_data_source.dart';
 import 'package:task_manager_app/features/kanban/data/repositories_imp/column_repository_imp.dart';
+import 'package:task_manager_app/features/kanban/data/repositories_imp/comment_repository_imp.dart';
 import 'package:task_manager_app/features/kanban/data/repositories_imp/project_repository_imp.dart';
+import 'package:task_manager_app/features/kanban/data/repositories_imp/task_log_repository_imp.dart';
 import 'package:task_manager_app/features/kanban/data/repositories_imp/task_repository_imp.dart';
 import 'package:task_manager_app/features/kanban/domain/repository/column_repository.dart';
+import 'package:task_manager_app/features/kanban/domain/repository/comment_repository.dart';
 import 'package:task_manager_app/features/kanban/domain/repository/project_repository.dart';
+import 'package:task_manager_app/features/kanban/domain/repository/task_log_repository.dart';
 import 'package:task_manager_app/features/kanban/domain/repository/task_repository.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/column_usecases/create_column_usecase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/column_usecases/get_column_usecase.dart';
+import 'package:task_manager_app/features/kanban/domain/usercase/comment_usecases/create_comment_usecase.dart';
+import 'package:task_manager_app/features/kanban/domain/usercase/comment_usecases/delete_comment_usecase.dart';
+import 'package:task_manager_app/features/kanban/domain/usercase/comment_usecases/get_comments_usecase.dart';
+import 'package:task_manager_app/features/kanban/domain/usercase/comment_usecases/update_comment_usecase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/project_usecases/create_project_usecase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/project_usecases/get_project_usecase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/project_usecases/get_projects_usecase.dart';
+import 'package:task_manager_app/features/kanban/domain/usercase/task_log_usecase/get_task_logs_uescas.dart';
+import 'package:task_manager_app/features/kanban/domain/usercase/task_log_usecase/new_task_log_uescase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/create_task_usecase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/get_task_usecase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/get_tasks_usecase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/delete_task_usecase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/update_task_usecase.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/column_cubit/column_cubit.dart';
+import 'package:task_manager_app/features/kanban/presentation/cubit/comment_cubit/comment_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/notification_cubit/notification_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/project_cubit/project_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
@@ -35,10 +48,35 @@ final sl = GetIt.instance;
 
 Future<void> setup() async {
   //Bloc
-  sl.registerFactory(() => ProjectBloc(createProjectUsecase: sl(), getProjectUsecase: sl(), getProjectsUsecase: sl()));
-  sl.registerFactory(() => ColumnBloc(createColumnUsecase: sl(), getColumnsUsecase: sl(), getTasksUsecase: sl()));
-  sl.registerFactory(() => TaskBloc(getTaskUsecase: sl(), getTasksUsecase: sl(), createTaskUsecase: sl(), updateTaskUsecase: sl(), deleteTaskUsecase: sl(), localNotificationService: sl()));
-  sl.registerFactory(() => NotificationBloc(localNotificationService: sl()));
+  sl.registerFactory(() => ProjectBloc(
+        createProjectUsecase: sl(),
+        getProjectUsecase: sl(),
+        getProjectsUsecase: sl(),
+      ));
+  sl.registerFactory(() => ColumnBloc(
+        createColumnUsecase: sl(),
+        getColumnsUsecase: sl(),
+        getTasksUsecase: sl(),
+      ));
+  sl.registerFactory(() => TaskBloc(
+        getTaskUsecase: sl(),
+        getTasksUsecase: sl(),
+        createTaskUsecase: sl(),
+        updateTaskUsecase: sl(),
+        deleteTaskUsecase: sl(),
+        newTaskLogUsecase: sl(),
+        getTaskslogsUsecase: sl(),
+        localNotificationService: sl(),
+      ));
+  sl.registerFactory(() => CommentBloc(
+        getCommentsUsecase: sl(),
+        createCommentUsecase: sl(),
+        updateCommentUsecase: sl(),
+        deleteCommentUsecase: sl(),
+      ));
+  sl.registerFactory(() => NotificationBloc(
+        localNotificationService: sl(),
+      ));
   sl.registerFactory(() => ThemeBloc());
   sl.registerFactory(() => TimerBloc());
 
@@ -53,16 +91,28 @@ Future<void> setup() async {
   sl.registerLazySingleton(() => DeleteTaskUsecase(repository: sl())); // Task
   sl.registerLazySingleton(() => GetTaskUsecase(repository: sl())); // Task
   sl.registerLazySingleton(() => GetTasksUsecase(repository: sl())); // Task
+  sl.registerLazySingleton(() => GetCommentsUsecase(repository: sl())); // Comment
+  sl.registerLazySingleton(() => CreateCommentUsecase(repository: sl())); // Comment
+  sl.registerLazySingleton(() => UpdateCommentUsecase(repository: sl())); // Comment
+  sl.registerLazySingleton(() => DeleteCommentUsecase(repository: sl())); // Comment
+  sl.registerLazySingleton(() => NewTaskLogUsecase(repository: sl())); // Task Log
+  sl.registerLazySingleton(() => GetTasksLogsUescas(repository: sl())); // Task Log
 
   // repository
   sl.registerLazySingleton<ProjectRepository>(() => ProjectRepositoryImpl(projectRemoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<ColumnRepository>(() => ColumnRepositoryImpl(columnRemoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(taskRemoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<CommentRepository>(() => CommentRepositoryImpl(commentRemoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<TaskLogRepository>(() => TaskLogRepositoryImp(taskLogLocalDataSource: sl()));
 
-  // Datasources
+  // remote Datasources
   sl.registerLazySingleton<ProjectRemoteDataSource>(() => ProjectRemoteDataSourceImp(apiService: sl()));
   sl.registerLazySingleton<ColumnRemoteDataSource>(() => ColumnRemoteDataSourceImp(apiService: sl()));
   sl.registerLazySingleton<TaskRemoteDataSource>(() => TaskRemoteDataSourceImp(apiService: sl()));
+  sl.registerLazySingleton<CommentRemoteDataSource>(() => CommentRemoteDataSourceImp(apiService: sl()));
+
+  // local Datasources
+  sl.registerLazySingleton<TaskLogLocalDataSource>(() => TaskLogLocalDataSourceImp());
 
   // Services
   sl.registerLazySingleton(() => ApiService(dio: sl()));

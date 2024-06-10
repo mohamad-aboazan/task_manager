@@ -35,13 +35,14 @@ class TaskAdapter extends TypeAdapter<Task> {
       sectionId: fields[15] as String?,
       parentId: fields[16] as String?,
       url: fields[17] as String?,
+      comments: (fields[18] as List?)?.cast<Comment>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Task obj) {
     writer
-      ..writeByte(18)
+      ..writeByte(19)
       ..writeByte(0)
       ..write(obj.creatorId)
       ..writeByte(1)
@@ -77,7 +78,9 @@ class TaskAdapter extends TypeAdapter<Task> {
       ..writeByte(16)
       ..write(obj.parentId)
       ..writeByte(17)
-      ..write(obj.url);
+      ..write(obj.url)
+      ..writeByte(18)
+      ..write(obj.comments);
   }
 
   @override

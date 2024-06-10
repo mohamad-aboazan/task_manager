@@ -14,7 +14,6 @@ class TimerBloc extends Cubit<Map<String, int>> {
   late Box<TimerState> _box;
 
   Future<void> _initializeHive() async {
-    await Hive.initFlutter();
     Hive.registerAdapter(TimerStateAdapter());
     _box = await Hive.openBox<TimerState>('timerState');
     _loadState();
