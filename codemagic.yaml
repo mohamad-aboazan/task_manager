@@ -14,5 +14,3 @@ workflows:
       email:
         recipients:
           - mohamadaboazan963@gmail.com
-        notify_on_build_success: true
-        notify_on_build_failure: false
