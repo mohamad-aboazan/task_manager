@@ -11,6 +11,6 @@ workflows:
     email:
       recipients:
         - mohamadaboazan963@gmail.com
-        - mohamad@gmail.com
+        - mohamadaboazan2@gmail.com
       subject: "APK Build Complete"
       body: "Your APK build is complete. Please find the attached APK file."
