@@ -7,6 +7,7 @@ import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/t
 import 'package:task_manager_app/features/kanban/presentation/cubit/theme_cubit/theme_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/screens/home/home_screen.dart';
 import 'package:task_manager_app/features/kanban/presentation/screens/projects/create_project.screen.dart';
+import 'package:task_manager_app/features/kanban/presentation/screens/settings/settings_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -64,9 +65,12 @@ class AppDrawer extends StatelessWidget {
               title: const Text("Add New Project"),
               leading: const Icon(Icons.add),
             ),
-            const ListTile(
-              title: Text("Settings"),
-              leading: Icon(Icons.settings),
+            ListTile(
+              title: const Text("Settings"),
+              onTap: () {
+                AppRoutes.push(context, const SettingsScreen());
+              },
+              leading: const Icon(Icons.settings),
             )
           ],
         ),

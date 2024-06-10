@@ -6,9 +6,7 @@ import 'package:task_manager_app/features/kanban/domain/entities/column.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/screens/tasks/create_task_screen.dart';
-import 'package:task_manager_app/features/kanban/presentation/screens/tasks/view_task_screen.dart';
 import 'package:task_manager_app/features/kanban/presentation/widgets/card/draggable_task_card.dart';
-import 'package:task_manager_app/features/kanban/presentation/widgets/card/task_card_widget.dart';
 
 class ColumnWidget extends StatefulWidget {
   final ColumnEntity columnEntity;

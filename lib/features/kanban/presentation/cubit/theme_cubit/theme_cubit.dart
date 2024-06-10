@@ -1,20 +1,41 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
 
 part "theme_state.dart";
 
 class ThemeBloc extends Cubit<ThemeState> {
+  SharedPreferences sharedPreferences;
   ThemeData? themeData;
-  ThemeBloc() : super(InitialState());
-
-  void changeTheme({Color? color, Brightness? brightness}) async {
-    themeData = getThemeData(color: color, brightness: brightness);
-    emit(ChangeThemeState(baseResponse: BaseResponse.success(themeData)));
+  String? themeMode = "";
+  ThemeBloc({required this.sharedPreferences}) : super(InitialState()) {
+    themeMode = sharedPreferences.getString("themeMode");
+    if (themeMode != null) {
+      if (themeMode == "dark") {
+        themeData = getThemeData(brightness: Brightness.dark);
+      } else {
+        themeData = getThemeData(brightness: Brightness.light);
+      }
+    } else {
+      themeMode = "dark";
+      themeData = getThemeData();
+    }
   }
 
-  init() {
-    themeData = getThemeData();
+  void changeTheme({Color? color, Brightness? brightness}) async {
+    if (brightness != null) {
+      if (brightness == Brightness.dark) {
+        themeMode = "dark";
+        await sharedPreferences.setString("themeMode", "dark");
+      } else {
+        themeMode = "light";
+        await sharedPreferences.setString("themeMode", "light");
+      }
+    }
+    themeData = getThemeData(color: color, brightness: themeMode == "dark" ? Brightness.dark : Brightness.light);
+
+    emit(ChangeThemeState(baseResponse: BaseResponse.success(themeData)));
   }
 
   getThemeData({Color? color, Brightness? brightness}) {

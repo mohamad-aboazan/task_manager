@@ -11,6 +11,7 @@ import 'package:task_manager_app/features/kanban/presentation/cubit/column_cubit
 import 'package:task_manager_app/features/kanban/presentation/cubit/project_cubit/project_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/screens/colunms/create_column_screen.dart';
+import 'package:task_manager_app/features/kanban/presentation/screens/notifications/notification_screen.dart';
 import 'package:task_manager_app/features/kanban/presentation/widgets/column_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,8 +40,13 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           InkWell(
-            onTap: () {},
-            child: const Icon(Icons.notifications),
+            onTap: () {
+              AppRoutes.push(context, const NotificationsScreeon());
+            },
+            child: const Padding(
+              padding: EdgeInsets.all(15),
+              child: Icon(Icons.notifications),
+            ),
           ),
         ],
         title: Text(

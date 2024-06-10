@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
 import 'package:task_manager_app/core/services/local_notification_service.dart';
 import 'package:task_manager_app/core/utils/log_content.dart';
@@ -119,7 +118,7 @@ class TaskBloc extends Cubit<TaskState> {
       title: 'Task Reminder',
       body: task.content ?? '',
       scheduledDate: DateTime.parse(task.due?.datetime ?? ''),
-      payload: 'Scheduled Notification Payload',
+      payload: task.due?.datetime ?? '',
     );
   }
 
@@ -130,7 +129,7 @@ class TaskBloc extends Cubit<TaskState> {
       title: 'Task Reminder',
       body: task.content ?? '',
       scheduledDate: DateTime.parse(task.due?.datetime ?? ''),
-      payload: 'Scheduled Notification Payload',
+      payload: task.due?.datetime ?? '',
     );
   }
 

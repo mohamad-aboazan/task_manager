@@ -77,7 +77,7 @@ Future<void> setup() async {
   sl.registerFactory(() => NotificationBloc(
         localNotificationService: sl(),
       ));
-  sl.registerFactory(() => ThemeBloc());
+  sl.registerFactory(() => ThemeBloc(sharedPreferences: sl()));
   sl.registerFactory(() => TimerBloc());
 
   //Usecases

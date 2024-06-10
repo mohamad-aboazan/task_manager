@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
 import 'package:task_manager_app/core/route/route.dart';
-import 'package:task_manager_app/core/services/local_notification_service.dart';
 import 'package:task_manager_app/core/sharedwidgets/app_snackbar.dart';
 import 'package:task_manager_app/core/sharedwidgets/date_time_picker.dart';
 import 'package:task_manager_app/core/utils/date_converter.dart';
@@ -13,7 +11,6 @@ import 'package:task_manager_app/core/utils/validation.dart';
 import 'package:task_manager_app/features/kanban/data/dto/create_comment_dto.dart';
 import 'package:task_manager_app/features/kanban/data/dto/update_task_dto.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/column.dart';
-import 'package:task_manager_app/features/kanban/domain/entities/comment.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart' as t;
 import 'package:task_manager_app/features/kanban/presentation/cubit/column_cubit/column_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/comment_cubit/comment_cubit.dart';

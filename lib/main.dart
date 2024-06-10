@@ -26,7 +26,7 @@ Future<void> main() async {
         BlocProvider(create: (_) => di.sl<CommentBloc>()),
         BlocProvider(create: (_) => di.sl<TimerBloc>()),
         BlocProvider(create: (_) => di.sl<NotificationBloc>()),
-        BlocProvider(create: (_) => di.sl<ThemeBloc>()..init()),
+        BlocProvider(create: (_) => di.sl<ThemeBloc>()),
       ],
       child: const MyApp(),
     ),
