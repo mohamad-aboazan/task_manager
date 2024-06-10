@@ -29,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     context.read<ColumnBloc>().getColumns();
     context.read<TaskBloc>().getTasks(context.read<ProjectBloc>().currentProject?.id ?? '');
-
     super.initState();
   }
 
@@ -89,16 +88,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (state.baseResponse.status == Status.success) ...[
                         for (int i = 0; i < state.baseResponse.data!.length; i++) ...[
                           DragTarget<t.Task>(onAcceptWithDetails: (details) {
-                            context.read<TaskBloc>().tasks.remove(details.data);
-                            details.data.labels?.clear();
-                            details.data.labels?.add(state.baseResponse.data![i].name ?? '');
-                            context.read<TaskBloc>().tasks.add(details.data);
-                            context.read<TaskBloc>().updateTask(id: details.data.id ?? '', updateTaskDto: UpdateTaskDto(labels: details.data.labels ?? []));
-                          }, builder: (
-                            BuildContext context,
-                            List<dynamic> accepted,
-                            List<dynamic> rejected,
-                          ) {
+                            TaskBloc taskBloc = context.read<TaskBloc>();
+                            taskBloc.updateTask(id: details.data.id ?? '', updateTaskDto: UpdateTaskDto(labels: [state.baseResponse.data![i].name ?? '']));
+                          }, builder: (BuildContext context, List<dynamic> accepted, List<dynamic> rejected) {
                             return ColumnWidget(
                               columnEntity: state.baseResponse.data![i],
                               scrollController: scrollController,

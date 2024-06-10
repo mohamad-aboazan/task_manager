@@ -7,16 +7,16 @@ import 'package:task_manager_app/features/kanban/domain/entities/project.dart';
 part "notification_state.dart";
 
 class NotificationBloc extends Cubit<NotificationState> {
-  LocalNotificationService localNotificationService;
+  final LocalNotificationService _localNotificationService;
 
   Project? currentProject;
   List<Project> projects = [];
-  NotificationBloc({required this.localNotificationService}) : super(InitialState());
+  NotificationBloc(this._localNotificationService) : super(InitialState());
 
   void getNotificationById({required int id}) async {
     try {
       emit(GetNotificationByIdState(baseResponse: BaseResponse.loading()));
-      PendingNotificationRequest? notification = await localNotificationService.getScheduledNotificationById(id);
+      PendingNotificationRequest? notification = await _localNotificationService.getScheduledNotificationById(id);
       emit(GetNotificationByIdState(baseResponse: BaseResponse.success(notification)));
     } catch (e) {
       emit(GetAllNotificationsState(baseResponse: BaseResponse.error(e.toString())));
@@ -26,7 +26,7 @@ class NotificationBloc extends Cubit<NotificationState> {
   void getAllScheduledNotifications() async {
     try {
       emit(GetAllNotificationsState(baseResponse: BaseResponse.loading()));
-      List<PendingNotificationRequest>? notifications = await localNotificationService.getAllScheduledNotifications();
+      List<PendingNotificationRequest>? notifications = await _localNotificationService.getAllScheduledNotifications();
       emit(GetAllNotificationsState(baseResponse: BaseResponse.success(notifications)));
     } catch (e) {
       emit(GetAllNotificationsState(baseResponse: BaseResponse.error(e.toString())));

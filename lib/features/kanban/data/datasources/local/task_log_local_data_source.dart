@@ -13,7 +13,7 @@ class TaskLogLocalDataSourceImp implements TaskLogLocalDataSource {
   @override
   Future<void> newTaskLog(String taskId, TaskLogTypes taskLogType) async {
     final box = await Hive.openBox<List<String>>(_boxName);
-    final logContent = LogContent.contentGenerator(taskLogType);
+    final logContent = LogContent.contentGenerator(taskLogType: taskLogType, variables: {});
     if (box.containsKey(taskId)) {
       final List<String> logs = box.get(taskId)!;
       logs.add(logContent);

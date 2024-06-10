@@ -6,11 +6,11 @@ import 'package:task_manager_app/core/entities/base_state.dart';
 part "theme_state.dart";
 
 class ThemeBloc extends Cubit<ThemeState> {
-  SharedPreferences sharedPreferences;
+  final SharedPreferences _sharedPreferences;
   ThemeData? themeData;
   String? themeMode = "";
-  ThemeBloc({required this.sharedPreferences}) : super(InitialState()) {
-    themeMode = sharedPreferences.getString("themeMode");
+  ThemeBloc(this._sharedPreferences) : super(InitialState()) {
+    themeMode = _sharedPreferences.getString("themeMode");
     if (themeMode != null) {
       if (themeMode == "dark") {
         themeData = getThemeData(brightness: Brightness.dark);
@@ -27,10 +27,10 @@ class ThemeBloc extends Cubit<ThemeState> {
     if (brightness != null) {
       if (brightness == Brightness.dark) {
         themeMode = "dark";
-        await sharedPreferences.setString("themeMode", "dark");
+        await _sharedPreferences.setString("themeMode", "dark");
       } else {
         themeMode = "light";
-        await sharedPreferences.setString("themeMode", "light");
+        await _sharedPreferences.setString("themeMode", "light");
       }
     }
     themeData = getThemeData(color: color, brightness: themeMode == "dark" ? Brightness.dark : Brightness.light);

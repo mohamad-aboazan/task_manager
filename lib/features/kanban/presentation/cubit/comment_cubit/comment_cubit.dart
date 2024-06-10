@@ -11,17 +11,17 @@ import 'package:task_manager_app/features/kanban/domain/usercase/comment_usecase
 part "comment_state.dart";
 
 class CommentBloc extends Cubit<CommentState> {
-  final GetCommentsUsecase getCommentsUsecase;
-  final CreateCommentUsecase createCommentUsecase;
-  final UpdateCommentUsecase updateCommentUsecase;
-  final DeleteCommentUsecase deleteCommentUsecase;
+  final GetCommentsUsecase _getCommentsUsecase;
+  final CreateCommentUsecase _createCommentUsecase;
+  final UpdateCommentUsecase _updateCommentUsecase;
+  final DeleteCommentUsecase _deleteCommentUsecase;
 
-  CommentBloc({required this.createCommentUsecase, required this.updateCommentUsecase, required this.getCommentsUsecase, required this.deleteCommentUsecase}) : super(InitialState());
+  CommentBloc(this._createCommentUsecase, this._updateCommentUsecase, this._getCommentsUsecase, this._deleteCommentUsecase) : super(InitialState());
 
   void createComment(CreateCommentDto createCommentDto) async {
     try {
       emit(CreateCommentState(baseResponse: BaseResponse.loading()));
-      Comment comment = await createCommentUsecase.execute(createCommentDto: createCommentDto);
+      Comment comment = await _createCommentUsecase.execute(createCommentDto: createCommentDto);
       emit(CreateCommentState(baseResponse: BaseResponse.success(comment)));
     } catch (e) {
       emit(CreateCommentState(baseResponse: BaseResponse.error(e.toString())));
@@ -31,7 +31,7 @@ class CommentBloc extends Cubit<CommentState> {
   void updateComment({required String id, required UpdateCommentDto updateCommentDto}) async {
     try {
       emit(UpdateCommentState(baseResponse: BaseResponse.loading()));
-      Comment comment = await updateCommentUsecase.execute(id: id, updateCommentDto: updateCommentDto);
+      Comment comment = await _updateCommentUsecase.execute(id: id, updateCommentDto: updateCommentDto);
       emit(UpdateCommentState(baseResponse: BaseResponse.success(comment)));
     } catch (e) {
       emit(UpdateCommentState(baseResponse: BaseResponse.error(e.toString())));
@@ -41,7 +41,7 @@ class CommentBloc extends Cubit<CommentState> {
   void deleteComment(Comment comment) async {
     try {
       emit(DeleteCommentState(baseResponse: BaseResponse.loading()));
-      await deleteCommentUsecase.execute(id: comment.id!);
+      await _deleteCommentUsecase.execute(id: comment.id!);
       emit(DeleteCommentState(baseResponse: BaseResponse.success(comment.id!)));
     } catch (e) {
       emit(DeleteCommentState(baseResponse: BaseResponse.error(e.toString())));
@@ -51,7 +51,7 @@ class CommentBloc extends Cubit<CommentState> {
   void getComments(String taskId) async {
     try {
       emit(GetCommentsState(baseResponse: BaseResponse.loading()));
-      List<Comment> comments = await getCommentsUsecase.execute(taskId: taskId);
+      List<Comment> comments = await _getCommentsUsecase.execute(taskId: taskId);
       emit(GetCommentsState(baseResponse: BaseResponse.success(comments)));
     } catch (e) {
       emit(GetCommentsState(baseResponse: BaseResponse.error(e.toString())));

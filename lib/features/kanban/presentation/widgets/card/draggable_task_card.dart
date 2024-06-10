@@ -27,7 +27,6 @@ class _DraggableTaskCardState extends State<DraggableTaskCard> {
           opacity: 0.3,
           child: TaskCard(task: widget.task),
         ),
-        onDragCompleted: () {},
         onDragStarted: () {
           scrollingOffset = widget.scrollController!.offset;
         },
@@ -37,7 +36,7 @@ class _DraggableTaskCardState extends State<DraggableTaskCard> {
           );
         },
         onDragUpdate: (details) {
-          // // Handle horizontal scrolling
+          // Handle horizontal scrolling
           if (widget.scrollController!.hasClients) {
             widget.scrollController!.jumpTo(
               widget.scrollController!.offset + details.delta.dx,

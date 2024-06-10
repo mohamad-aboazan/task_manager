@@ -53,31 +53,11 @@ Future<void> setup() async {
         getProjectUsecase: sl(),
         getProjectsUsecase: sl(),
       ));
-  sl.registerFactory(() => ColumnBloc(
-        createColumnUsecase: sl(),
-        getColumnsUsecase: sl(),
-        getTasksUsecase: sl(),
-      ));
-  sl.registerFactory(() => TaskBloc(
-        getTaskUsecase: sl(),
-        getTasksUsecase: sl(),
-        createTaskUsecase: sl(),
-        updateTaskUsecase: sl(),
-        deleteTaskUsecase: sl(),
-        newTaskLogUsecase: sl(),
-        getTaskslogsUsecase: sl(),
-        localNotificationService: sl(),
-      ));
-  sl.registerFactory(() => CommentBloc(
-        getCommentsUsecase: sl(),
-        createCommentUsecase: sl(),
-        updateCommentUsecase: sl(),
-        deleteCommentUsecase: sl(),
-      ));
-  sl.registerFactory(() => NotificationBloc(
-        localNotificationService: sl(),
-      ));
-  sl.registerFactory(() => ThemeBloc(sharedPreferences: sl()));
+  sl.registerFactory(() => ColumnBloc(sl(), sl()));
+  sl.registerFactory(() => TaskBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => CommentBloc(sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => NotificationBloc(sl()));
+  sl.registerFactory(() => ThemeBloc(sl()));
   sl.registerFactory(() => TimerBloc());
 
   //Usecases

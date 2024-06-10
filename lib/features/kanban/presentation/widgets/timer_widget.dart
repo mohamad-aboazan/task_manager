@@ -24,9 +24,9 @@ class TimerWidget extends StatelessWidget {
               onPressed: () {
                 print(id);
                 if (isRunning) {
-                  context.read<TaskBloc>().newLog(taskId: id, taskLogType: TaskLogTypes.stopTimer);
+                  context.read<TaskBloc>().newLog(taskId: id, taskLogType: TaskLogTypes.stopTimer, variables: {});
                 } else {
-                  context.read<TaskBloc>().newLog(taskId: id, taskLogType: TaskLogTypes.startTimer);
+                  context.read<TaskBloc>().newLog(taskId: id, taskLogType: TaskLogTypes.startTimer, variables: {});
                 }
                 timerBloc.toggleTimer(id);
               },

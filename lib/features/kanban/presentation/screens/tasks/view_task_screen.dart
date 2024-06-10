@@ -57,6 +57,7 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
     commentController = TextEditingController();
     context.read<NotificationBloc>().getNotificationById(id: widget.task.getShortId());
     taskHistories = context.read<TaskBloc>().getTaskHistories(widget.task.id!);
+    context.read<CommentBloc>().getComments(widget.task.id!);
   }
 
   @override
@@ -204,14 +205,16 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
                           print(current);
                           if (current is CreateCommentState && current.baseResponse.status == Status.success) {
                             widget.task.comments?.add(current.baseResponse.data!);
-                            context.read<TaskBloc>().newLog(taskId: widget.task.id!, taskLogType: TaskLogTypes.commentAdded);
+                            context.read<TaskBloc>().newLog(taskId: widget.task.id!, taskLogType: TaskLogTypes.commentAdded, variables: {});
                           } else if (current is UpdateCommentState && current.baseResponse.status == Status.success) {
                             widget.task.comments?.removeWhere((comment) => comment.id == current.baseResponse.data.id);
                             widget.task.comments?.add(current.baseResponse.data!);
-                            context.read<TaskBloc>().newLog(taskId: widget.task.id!, taskLogType: TaskLogTypes.commentUpdated);
+                            context.read<TaskBloc>().newLog(taskId: widget.task.id!, taskLogType: TaskLogTypes.commentUpdated, variables: {});
                           } else if (current is DeleteCommentState && current.baseResponse.status == Status.success) {
                             widget.task.comments?.removeWhere((comment) => comment.id == current.baseResponse.data);
-                            context.read<TaskBloc>().newLog(taskId: widget.task.id!, taskLogType: TaskLogTypes.commentDeleted);
+                            context.read<TaskBloc>().newLog(taskId: widget.task.id!, taskLogType: TaskLogTypes.commentDeleted, variables: {});
+                          } else if (current is GetCommentsState && current.baseResponse.status == Status.success) {
+                            widget.task.comments?.addAll(current.baseResponse.data!);
                           } else if (current is CreateCommentState && current.baseResponse.status == Status.error) {
                             print(current.baseResponse.error.toString());
                           } else if (current is UpdateCommentState && current.baseResponse.status == Status.error) {
