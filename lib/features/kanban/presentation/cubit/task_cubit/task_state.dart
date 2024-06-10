@@ -18,3 +18,8 @@ class GetTasksState extends TaskState {
   BaseResponse baseResponse;
   GetTasksState({required this.baseResponse});
 }
+
+class DeleteTaskState extends TaskState {
+  BaseResponse baseResponse;
+  DeleteTaskState({required this.baseResponse});
+}

@@ -6,7 +6,8 @@ class UpdateTaskDto {
   int? priority;
   int? duration;
   String? durationUnit;
-  UpdateTaskDto({this.content, this.description, this.dueDatetime, this.labels, this.priority, this.duration, this.durationUnit});
+  bool reminder;
+  UpdateTaskDto({this.content, this.description, this.dueDatetime, this.labels, this.priority, this.duration, this.durationUnit, this.reminder = false});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};

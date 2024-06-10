@@ -29,4 +29,9 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Task> updateTask(String id, UpdateTaskDto updateTaskDto) async {
     return await taskRemoteDataSource.updateTask(id, updateTaskDto);
   }
+
+  @override
+  Future<void> deleteTask(String id) async {
+    return await taskRemoteDataSource.deleteTask(id);
+  }
 }

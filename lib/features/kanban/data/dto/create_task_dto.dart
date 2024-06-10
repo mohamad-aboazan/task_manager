@@ -7,8 +7,9 @@ class CreateTaskDto {
   int priority;
   int duration;
   String durationUnit;
+  bool reminder;
 
-  CreateTaskDto({required this.content, required this.description, required this.projectId, required this.dueDatetime, required this.labels, required this.priority, required this.duration, required this.durationUnit});
+  CreateTaskDto({required this.content, required this.description, required this.projectId, required this.dueDatetime, required this.labels, required this.priority, required this.duration, required this.durationUnit, required this.reminder});
 
   Map<String, dynamic> toJson() {
     return {

@@ -9,6 +9,7 @@ abstract class TaskRemoteDataSource {
   Future<Task> createTask(CreateTaskDto createTaskDto);
   Future<Task> updateTask(String id, UpdateTaskDto updateTaskDto);
   Future<Task> getTask(String id);
+  Future<void> deleteTask(String id);
 }
 
 class TaskRemoteDataSourceImp implements TaskRemoteDataSource {
@@ -39,5 +40,10 @@ class TaskRemoteDataSourceImp implements TaskRemoteDataSource {
     var responseData = await apiService.get('${Endpoints.TASKS}?project_id=$projectId');
     List<Task> tasks = responseData.map((e) => Task.fromJson(e)).toList().cast<Task>();
     return tasks;
+  }
+
+  @override
+  Future<void> deleteTask(String id) async {
+    await apiService.delete('${Endpoints.TASKS}/$id');
   }
 }

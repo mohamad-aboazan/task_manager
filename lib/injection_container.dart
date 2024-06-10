@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager_app/core/network/network_info.dart';
 import 'package:task_manager_app/core/services/api_service.dart';
+import 'package:task_manager_app/core/services/local_notification_service.dart';
 import 'package:task_manager_app/features/kanban/data/datasources/remote/column_remote_data_source.dart';
 import 'package:task_manager_app/features/kanban/data/datasources/remote/project_remote_data_source.dart';
 import 'package:task_manager_app/features/kanban/data/datasources/remote/task_remote_data_source.dart';
@@ -21,8 +22,10 @@ import 'package:task_manager_app/features/kanban/domain/usercase/project_usecase
 import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/create_task_usecase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/get_task_usecase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/get_tasks_usecase.dart';
+import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/delete_task_usecase.dart';
 import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/update_task_usecase.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/column_cubit/column_cubit.dart';
+import 'package:task_manager_app/features/kanban/presentation/cubit/notification_cubit/notification_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/project_cubit/project_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/theme_cubit/theme_cubit.dart';
@@ -34,7 +37,8 @@ Future<void> setup() async {
   //Bloc
   sl.registerFactory(() => ProjectBloc(createProjectUsecase: sl(), getProjectUsecase: sl(), getProjectsUsecase: sl()));
   sl.registerFactory(() => ColumnBloc(createColumnUsecase: sl(), getColumnsUsecase: sl(), getTasksUsecase: sl()));
-  sl.registerFactory(() => TaskBloc(getTaskUsecase: sl(), getTasksUsecase: sl(), createTaskUsecase: sl(), updateTaskUsecase: sl()));
+  sl.registerFactory(() => TaskBloc(getTaskUsecase: sl(), getTasksUsecase: sl(), createTaskUsecase: sl(), updateTaskUsecase: sl(), deleteTaskUsecase: sl(), localNotificationService: sl()));
+  sl.registerFactory(() => NotificationBloc(localNotificationService: sl()));
   sl.registerFactory(() => ThemeBloc());
   sl.registerFactory(() => TimerBloc());
 
@@ -46,6 +50,7 @@ Future<void> setup() async {
   sl.registerLazySingleton(() => CreateColumnUsecase(repository: sl())); // Column
   sl.registerLazySingleton(() => CreateTaskUsecase(repository: sl())); // Task
   sl.registerLazySingleton(() => UpdateTaskUsecase(repository: sl())); // Task
+  sl.registerLazySingleton(() => DeleteTaskUsecase(repository: sl())); // Task
   sl.registerLazySingleton(() => GetTaskUsecase(repository: sl())); // Task
   sl.registerLazySingleton(() => GetTasksUsecase(repository: sl())); // Task
 
@@ -59,9 +64,9 @@ Future<void> setup() async {
   sl.registerLazySingleton<ColumnRemoteDataSource>(() => ColumnRemoteDataSourceImp(apiService: sl()));
   sl.registerLazySingleton<TaskRemoteDataSource>(() => TaskRemoteDataSourceImp(apiService: sl()));
 
-  // Datasources
-
+  // Services
   sl.registerLazySingleton(() => ApiService(dio: sl()));
+  sl.registerLazySingleton(() => LocalNotificationService());
 
   // Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));

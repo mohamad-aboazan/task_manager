@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
 import 'package:task_manager_app/core/route/route.dart';
+import 'package:task_manager_app/core/services/local_notification_service.dart';
 import 'package:task_manager_app/core/sharedwidgets/app_drawer.dart';
 import 'package:task_manager_app/core/sharedwidgets/app_snackbar.dart';
 import 'package:task_manager_app/features/kanban/data/dto/update_task_dto.dart';
-import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
+import 'package:task_manager_app/features/kanban/domain/entities/task.dart' as t;
 import 'package:task_manager_app/features/kanban/presentation/cubit/column_cubit/column_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/project_cubit/project_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
@@ -21,6 +22,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   ScrollController scrollController = ScrollController();
+  LocalNotificationService notificationService = LocalNotificationService();
+
   @override
   void initState() {
     context.read<ColumnBloc>().getColumns();
@@ -34,6 +37,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        actions: [
+          InkWell(
+            onTap: () {},
+            child: const Icon(Icons.notifications),
+          ),
+        ],
         title: Text(
           context.read<ProjectBloc>().currentProject?.name ?? '',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
@@ -73,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       if (state.baseResponse.status == Status.success) ...[
                         for (int i = 0; i < state.baseResponse.data!.length; i++) ...[
-                          DragTarget<Task>(onAcceptWithDetails: (details) {
+                          DragTarget<t.Task>(onAcceptWithDetails: (details) {
                             context.read<TaskBloc>().tasks.remove(details.data);
                             details.data.labels?.clear();
                             details.data.labels?.add(state.baseResponse.data![i].name ?? '');

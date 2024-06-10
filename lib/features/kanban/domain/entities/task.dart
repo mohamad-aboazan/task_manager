@@ -111,6 +111,10 @@ class Task extends HiveObject {
     data['url'] = url;
     return data;
   }
+
+  int getShortId() {
+    return int.parse(id!.substring(id!.length - 3, id?.length));
+  }
 }
 
 @HiveType(typeId: 1)

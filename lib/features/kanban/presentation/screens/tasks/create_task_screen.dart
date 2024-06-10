@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
 import 'package:task_manager_app/core/route/route.dart';
 import 'package:task_manager_app/core/sharedwidgets/app_snackbar.dart';
@@ -14,6 +13,7 @@ import 'package:task_manager_app/features/kanban/presentation/cubit/column_cubit
 import 'package:task_manager_app/features/kanban/presentation/cubit/project_cubit/project_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/widgets/priority_dropdown_widget.dart';
+import 'package:task_manager_app/features/kanban/presentation/widgets/reminder_switch_widget.dart';
 
 class CreateTaskScreen extends StatefulWidget {
   ColumnEntity? columnEntity;
@@ -32,7 +32,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
   TextEditingController unitController = TextEditingController();
   TextEditingController progressController = TextEditingController();
   TextEditingController priorityController = TextEditingController();
-
+  bool reminder = true;
   @override
   void initState() {
     progressController.text = widget.columnEntity?.name ?? '';
@@ -81,7 +81,6 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                 ),
                 const SizedBox(height: 20),
                 //========================== Duration input ============================
-
                 TextFormField(
                   controller: durationController,
                   validator: (value) => Validation.isEmptyValidation(value),
@@ -91,7 +90,6 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                 ),
                 const SizedBox(height: 20),
                 //========================== Unit input ============================
-
                 DropdownMenu(
                     expandedInsets: EdgeInsets.zero,
                     controller: unitController,
@@ -103,7 +101,6 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                         .toList()),
                 const SizedBox(height: 20),
                 //========================== Progress input ============================
-
                 DropdownMenu(
                     expandedInsets: EdgeInsets.zero,
                     controller: progressController,
@@ -116,11 +113,12 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                         )
                         .toList()),
                 const SizedBox(height: 20),
-
                 //========================== priority input ============================
                 PriorityDropdownWidget(priorityController: priorityController),
                 const SizedBox(height: 20),
-
+                //========================== Reminder input ============================
+                ReminderSwitchwidget(onChanged: (value) => reminder = value, reminder: reminder),
+                const SizedBox(height: 40),
                 //========================== Create button ============================
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
@@ -149,17 +147,17 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                           if (_formKey.currentState!.validate()) {
                             context.read<TaskBloc>().createTask(
                                   CreateTaskDto(
-                                    projectId: context.read<ProjectBloc>().currentProject?.id ?? '',
-                                    content: contentController.text,
-                                    description: descriptionController.text,
-                                    dueDatetime: DateConverter.formatDateTime(DateConverter.parseDateTime(dateTimeController.text)),
-                                    labels: [progressController.text],
-                                    priority: int.parse(
-                                      priorityController.text,
-                                    ),
-                                    duration: int.parse(durationController.text),
-                                    durationUnit: unitController.text,
-                                  ),
+                                      projectId: context.read<ProjectBloc>().currentProject?.id ?? '',
+                                      content: contentController.text,
+                                      description: descriptionController.text,
+                                      dueDatetime: DateConverter.formatDateTime(DateConverter.parseDateTime(dateTimeController.text)),
+                                      labels: [progressController.text],
+                                      priority: int.parse(
+                                        priorityController.text,
+                                      ),
+                                      duration: int.parse(durationController.text),
+                                      durationUnit: unitController.text,
+                                      reminder: reminder),
                                 );
                           }
                         },
