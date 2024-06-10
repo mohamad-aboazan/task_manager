@@ -1,6 +1,9 @@
 workflows:
   flutter_build:
     name: Flutter Build APK
+    triggering:
+      events : 
+        - push
     environment:
       flutter: stable
     scripts:
