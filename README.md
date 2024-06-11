@@ -26,6 +26,10 @@ First, clone the project repository from GitHub:
 - flutter pub get
 - flutter run
 
+## Obtaining the APK Version
+
+To retrieve the latest APK version, you'll need to push the code to trigger the CI/CD pipeline. After pushing the code, please add your email to the workflow file (`codemagic.yaml`) and wait for approximately 5 minutes. You will receive an email containing the latest version of the APK.
+
 # Task Manager Architecture
 
 
