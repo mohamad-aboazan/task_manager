@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
@@ -13,7 +14,6 @@ import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/t
 ///   - `context`: The build context used to access dependencies.
 ///   - `task`: The task for which the history is being displayed.
 ///======================================================================================================
-
 
 class TaskHistoryScreen extends StatefulWidget {
   Task task;
@@ -36,7 +36,7 @@ class _TaskHistoryScreenState extends State<TaskHistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Task History"),
+        title: Text("Task History".tr()),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(20),
@@ -44,7 +44,10 @@ class _TaskHistoryScreenState extends State<TaskHistoryScreen> {
         itemBuilder: (context, index) {
           return Column(
             children: [
-              Text(taskHistory?[index] ?? '' , textAlign: TextAlign.center,),
+              Text(
+                taskHistory?[index] ?? '',
+                textAlign: TextAlign.center,
+              ),
               const Divider(),
             ],
           );

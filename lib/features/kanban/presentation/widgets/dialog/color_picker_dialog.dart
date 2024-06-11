@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager_app/core/route/route.dart';
 import 'package:task_manager_app/core/utils/todoist_colors.dart';
@@ -23,7 +24,7 @@ class ColorPickerDialog {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Pick a color'),
+          title: Text('Pick a color'.tr()),
           content: Wrap(
             alignment: WrapAlignment.center,
             children: [

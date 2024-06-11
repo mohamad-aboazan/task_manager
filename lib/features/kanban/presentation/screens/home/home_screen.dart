@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
@@ -141,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               const SizedBox(height: 20),
                               Text(
-                                "Create New Column",
+                                "Create New Column".tr(),
                                 style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 30, fontWeight: FontWeight.bold),
                               ),
                             ],

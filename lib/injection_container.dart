@@ -42,7 +42,7 @@ import 'package:task_manager_app/features/kanban/presentation/cubit/comment_cubi
 import 'package:task_manager_app/features/kanban/presentation/cubit/notification_cubit/notification_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/project_cubit/project_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
-import 'package:task_manager_app/features/kanban/presentation/cubit/theme_cubit/theme_cubit.dart';
+import 'package:task_manager_app/features/kanban/presentation/cubit/settings_cubit/settings_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/timer_cubit/timer_cubit.dart';
 
 final sl = GetIt.instance;
@@ -67,7 +67,7 @@ Future<void> setup() async {
   sl.registerFactory(() => TaskBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory(() => CommentBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => NotificationBloc(sl()));
-  sl.registerFactory(() => ThemeBloc(sl()));
+  sl.registerFactory(() => SettingsBloc(sl()));
   sl.registerFactory(() => TimerBloc());
 
   //Usecases

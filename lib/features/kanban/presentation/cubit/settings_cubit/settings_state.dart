@@ -11,13 +11,13 @@
 ///    theme change action.
 ///======================================================================================================
 
-part of 'theme_cubit.dart';
+part of 'settings_cubit.dart';
 
-abstract class ThemeState {}
+abstract class SettingsState {}
 
-class InitialState extends ThemeState {}
+class InitialState extends SettingsState {}
 
-class ChangeThemeState extends ThemeState {
+class ChangeThemeState extends SettingsState {
   BaseResponse baseResponse;
   ChangeThemeState({required this.baseResponse});
 }

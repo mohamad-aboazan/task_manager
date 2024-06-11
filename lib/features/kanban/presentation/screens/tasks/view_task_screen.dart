@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +23,6 @@ import 'package:task_manager_app/features/kanban/presentation/widgets/task_popup
 import 'package:task_manager_app/features/kanban/presentation/widgets/timer_widget.dart';
 import 'package:task_manager_app/features/kanban/presentation/widgets/priority_dropdown_widget.dart';
 
-
 ///======================================================================================================
 /// Screen for viewing and updating task details.
 ///
@@ -34,7 +34,6 @@ import 'package:task_manager_app/features/kanban/presentation/widgets/priority_d
 ///   - `task`: The task whose details are being viewed and updated.
 ///   - `colunmEntities`: The list of column entities used for dropdown selection.
 ///======================================================================================================
-
 
 class ViewTaskScreen extends StatefulWidget {
   final t.Task task;
@@ -78,7 +77,7 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('View Task'),
+        title: Text('View Task'.tr()),
         actions: [
           TaskPopupMenuButton(task: widget.task),
         ],
@@ -101,7 +100,7 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
                       TextFormField(
                         controller: contentController,
                         validator: (value) => Validation.isEmptyValidation(value),
-                        decoration: const InputDecoration(labelText: 'Content'),
+                        decoration: InputDecoration(labelText: 'Title'.tr()),
                       ),
                       const SizedBox(height: 20),
                       //============================ Description input ============================
@@ -110,7 +109,7 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
                         maxLines: 100,
                         minLines: 1,
                         validator: (value) => Validation.isEmptyValidation(value),
-                        decoration: const InputDecoration(labelText: 'Description'),
+                        decoration: InputDecoration(labelText: 'Description'.tr()),
                       ),
                       const SizedBox(height: 20),
                       //============================ Start date and time input ============================
@@ -121,9 +120,9 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
                           dateTimeController.text = await AppDateTimePicker.show(context);
                         },
                         validator: (value) => Validation.isEmptyValidation(value),
-                        decoration: const InputDecoration(
-                          labelText: 'Start date and time',
-                          suffixIcon: Icon(Icons.date_range_rounded),
+                        decoration: InputDecoration(
+                          labelText: 'Start date and time'.tr(),
+                          suffixIcon: const Icon(Icons.date_range_rounded),
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -134,7 +133,7 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
                         validator: (value) => Validation.isEmptyValidation(value),
                         keyboardType: TextInputType.number,
                         inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-                        decoration: const InputDecoration(labelText: 'Duration', suffixIcon: Icon(Icons.timer)),
+                        decoration: InputDecoration(labelText: 'Duration'.tr(), suffixIcon: const Icon(Icons.timer)),
                       ),
                       const SizedBox(height: 20),
                       //========================== Unit input ============================
@@ -142,10 +141,10 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
                       DropdownMenu(
                           expandedInsets: EdgeInsets.zero,
                           controller: unitController,
-                          label: const Text("Unit"),
+                          label: Text("Unit".tr()),
                           dropdownMenuEntries: ["minute", "day"]
                               .map(
-                                (e) => DropdownMenuEntry(value: e, label: e),
+                                (e) => DropdownMenuEntry(value: e, label: e.tr()),
                               )
                               .toList()),
                       const SizedBox(height: 20),
@@ -153,7 +152,7 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
                       DropdownMenu(
                           expandedInsets: EdgeInsets.zero,
                           controller: progressController,
-                          label: const Text("Task Progress"),
+                          label: Text("Task Progress".tr()),
                           dropdownMenuEntries: context
                               .read<ColumnBloc>()
                               .colunmEntities
@@ -195,7 +194,7 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
                                     }
                                   },
                                   decoration: InputDecoration(
-                                    labelText: 'write a comment...',
+                                    labelText: 'write a comment...'.tr(),
                                     suffixIcon: showDoneComment
                                         ? IconButton(
                                             icon: const Icon(Icons.done),
@@ -293,7 +292,7 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
                         }
                         AppRoutes.pop(context);
                       },
-                      child: state is UpdateTaskState && state.baseResponse.status == Status.loading ? const CircularProgressIndicator() : const Text('Save Changes'),
+                      child: state is UpdateTaskState && state.baseResponse.status == Status.loading ? const CircularProgressIndicator() : Text('Save Changes'.tr()),
                     );
                   },
                 ),

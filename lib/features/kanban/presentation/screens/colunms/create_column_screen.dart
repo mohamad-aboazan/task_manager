@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
@@ -41,7 +42,7 @@ class _CreateColumnScreenState extends State<CreateColumnScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Create New Column')),
+      appBar: AppBar(title: Text('Create New Column'.tr())),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -53,7 +54,7 @@ class _CreateColumnScreenState extends State<CreateColumnScreen> {
               TextFormField(
                 controller: columnController,
                 validator: (value) => Validation.isEmptyValidation(value),
-                decoration: const InputDecoration(labelText: 'Column Name'),
+                decoration: InputDecoration(labelText: 'Column Name'.tr()),
               ),
               const SizedBox(height: 16.0),
               //========================== Column color input ============================
@@ -72,7 +73,7 @@ class _CreateColumnScreenState extends State<CreateColumnScreen> {
                   child: Row(
                     children: [
                       Text(
-                        'Choose Column Color: ',
+                        'Choose Column Color: '.tr(),
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(width: 10),
@@ -95,7 +96,7 @@ class _CreateColumnScreenState extends State<CreateColumnScreen> {
                       switch (current.baseResponse.status) {
                         case Status.success:
                           context.read<ColumnBloc>().getColumns();
-                          AppSnackBar.show(context: context, message: "Added Successfully", status: SnackBarStatus.success);
+                          AppSnackBar.show(context: context, message: "Added Successfully".tr(), status: SnackBarStatus.success);
 
                         case Status.error:
                           AppSnackBar.show(context: context, message: current.baseResponse.error.toString(), status: SnackBarStatus.error);

@@ -50,6 +50,8 @@ dependencies:
   hive_generator: ^2.0.1
   flutter_local_notifications: ^17.1.2
   icons_launcher: ^2.1.7
+  easy_localization: ^3.0.7
+
   
 
 dev_dependencies:
@@ -77,6 +79,7 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/fonts/
+    - assets/translations/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

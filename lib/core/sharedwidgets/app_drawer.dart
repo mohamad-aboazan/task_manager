@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_app/core/route/route.dart';
 import 'package:task_manager_app/core/utils/todoist_colors.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/project_cubit/project_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
-import 'package:task_manager_app/features/kanban/presentation/cubit/theme_cubit/theme_cubit.dart';
+import 'package:task_manager_app/features/kanban/presentation/cubit/settings_cubit/settings_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/screens/home/home_screen.dart';
 import 'package:task_manager_app/features/kanban/presentation/screens/projects/create_project.screen.dart';
 import 'package:task_manager_app/features/kanban/presentation/screens/settings/settings_screen.dart';
@@ -30,7 +31,7 @@ class AppDrawer extends StatelessWidget {
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Your Projects", style: Theme.of(context).textTheme.titleLarge),
+                Text("Your Projects".tr(), style: Theme.of(context).textTheme.titleLarge),
                 const Divider(),
                 Expanded(
                   child: ListView.builder(
@@ -44,7 +45,7 @@ class AppDrawer extends StatelessWidget {
                             if (projectBloc.projects[index].id != projectBloc.currentProject?.id) {
                               taskBloc.tasks.clear();
                               projectBloc.currentProject = projectBloc.projects[index];
-                              context.read<ThemeBloc>().changeTheme(color: Color(TodoistColors.getColorCode(projectBloc.projects[index].color ?? '')));
+                              context.read<SettingsBloc>().changeTheme(color: Color(TodoistColors.getColorCode(projectBloc.projects[index].color ?? '')));
                               AppRoutes.pushAndRemoveUntil(context, const HomeScreen());
                             } else {
                               AppRoutes.pop(context);
@@ -67,11 +68,11 @@ class AppDrawer extends StatelessWidget {
               onTap: () {
                 AppRoutes.push(context, const CreateProjectScreen());
               },
-              title: const Text("Add New Project"),
+              title: Text("Add New Project".tr()),
               leading: const Icon(Icons.add),
             ),
             ListTile(
-              title: const Text("Settings"),
+              title:  Text("Settings".tr()),
               onTap: () {
                 AppRoutes.push(context, const SettingsScreen());
               },

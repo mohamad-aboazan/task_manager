@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 ///======================================================================================================
 /// Provides validation methods for various input fields.
 ///======================================================================================================
@@ -5,7 +7,7 @@
 class Validation {
   static String? passwordValidation(String value) {
     if (value.isEmpty) {
-      return "value must be not empty";
+      return "value must be not empty".tr();
     } else if (value.length < 5) {
       return "Password must be more than 5 charachter";
     }
@@ -14,7 +16,7 @@ class Validation {
 
   static isEmptyValidation(value) {
     if (value.isEmpty) {
-      return "must be not empty";
+      return "must be not empty".tr();
     }
   }
 

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -88,7 +89,7 @@ class _CommentWidgetState extends State<CommentWidget> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Edit Comment'),
+          title: Text('Edit Comment'.tr()),
           content: TextField(
             maxLines: 100,
             minLines: 1,
@@ -100,13 +101,13 @@ class _CommentWidgetState extends State<CommentWidget> {
                 Navigator.pop(context);
                 context.read<CommentBloc>().updateComment(id: comment.id!, updateCommentDto: UpdateCommentDto(content: commentController.text));
               },
-              child: const Text('Save'),
+              child: Text('Save'.tr()),
             ),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Cancel'),
+              child: Text('Cancel'.tr()),
             ),
           ],
         );

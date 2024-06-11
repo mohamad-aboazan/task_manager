@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
@@ -114,11 +115,11 @@ class _ColumnWidgetState extends State<ColumnWidget> {
                         ));
                   },
                   label: Text(
-                    "Add New Task",
+                    "Add New Task".tr(),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           color: Color(widget.columnEntity.color ?? 0),
                         ),
-                  ),
+                  ).tr(),
                   icon: Icon(Icons.add, color: Color(widget.columnEntity.color ?? 0)),
                 ),
               )

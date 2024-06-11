@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/notification_cubit/notification_cubit.dart';
@@ -56,7 +57,7 @@ class _ReminderSwitchwidgetState extends State<ReminderSwitchwidget> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Reminder',
+            'Reminder'.tr(),
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 18),
           ),
           Switch(

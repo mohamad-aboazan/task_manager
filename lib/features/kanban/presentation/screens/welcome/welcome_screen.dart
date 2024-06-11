@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager_app/core/route/route.dart';
 import 'package:task_manager_app/core/utils/assets.dart';
@@ -32,12 +33,12 @@ class WelcomeScreen extends StatelessWidget {
                   child: Image.asset(AppAssets.APP_ICON_TRANSPARENT),
                 ),
                 Text(
-                  "Welcome to Task Manager! 🚀",
+                  "Welcome to Task Manager! 🚀".tr(),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 25),
                 ),
                 Text(
-                  "Let's get organized and productive together. Whether it's managing your to-dos, setting reminders, or prioritizing tasks, this app has got you covered. Ready to conquer your day? Let's dive in!",
+                  "Let's get organized and productive together. Whether it's managing your to-dos, setting reminders, or prioritizing tasks, this app has got you covered. Ready to conquer your day? Let's dive in!".tr(),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleLarge,
                 )
@@ -51,7 +52,7 @@ class WelcomeScreen extends StatelessWidget {
                   AppRoutes.push(context, const CreateProjectScreen());
                 },
                 child: Text(
-                  "Get Started",
+                  "Get Started".tr(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),

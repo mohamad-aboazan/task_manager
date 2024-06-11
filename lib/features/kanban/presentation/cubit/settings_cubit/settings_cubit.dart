@@ -4,9 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
 import 'package:task_manager_app/core/themes/app_theme.dart';
 
-part "theme_state.dart";
+part "settings_state.dart";
 
 ///======================================================================================================
+
 /// This file defines the `ThemeBloc` class, which is responsible for managing
 /// the application's theme state.
 ///
@@ -15,13 +16,16 @@ part "theme_state.dart";
 /// based on theme changes.
 ///======================================================================================================
 
-class ThemeBloc extends Cubit<ThemeState> {
+class SettingsBloc extends Cubit<SettingsState> {
   final SharedPreferences _sharedPreferences;
   ThemeData? themeData;
   String? themeMode = "";
 
   // Constructor: Initializes ThemeBloc with SharedPreferences and sets the initial state.
-  ThemeBloc(this._sharedPreferences) : super(InitialState()) {
+  SettingsBloc(this._sharedPreferences) : super(InitialState()) {
+    _initTheme();
+  }
+  _initTheme() {
     themeMode = _sharedPreferences.getString("themeMode");
     if (themeMode != null) {
       if (themeMode == "dark") {

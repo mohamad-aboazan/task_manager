@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager_app/core/utils/constant.dart';
 
@@ -28,7 +29,7 @@ class _PriorityDropdownWidgetState extends State<PriorityDropdownWidget> {
         expandedInsets: EdgeInsets.zero,
         controller: widget.priorityController,
         leadingIcon: Constant.priorityIcons[int.parse(widget.priorityController.text) - 1],
-        label: const Text("priority"),
+        label: Text("priority".tr()),
         onSelected: (value) {
           setstateDropdown(() {});
         },

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,7 +69,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Create Task')),
+      appBar: AppBar(title: Text('Create Task'.tr())),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Form(
@@ -81,7 +82,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                 TextFormField(
                   controller: contentController,
                   validator: (value) => Validation.isEmptyValidation(value),
-                  decoration: const InputDecoration(labelText: 'Title'),
+                  decoration: InputDecoration(labelText: 'Title'.tr()),
                 ),
                 const SizedBox(height: 20),
                 //========================== Description input ============================
@@ -90,7 +91,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                   maxLines: 100,
                   minLines: 1,
                   validator: (value) => Validation.isEmptyValidation(value),
-                  decoration: const InputDecoration(labelText: 'Description'),
+                  decoration: InputDecoration(labelText: 'Description'.tr()),
                 ),
                 const SizedBox(height: 20),
                 //========================== Description input ============================
@@ -101,7 +102,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                     dateTimeController.text = await AppDateTimePicker.show(context);
                   },
                   validator: (value) => Validation.isEmptyValidation(value),
-                  decoration: const InputDecoration(labelText: 'Start date and time', suffixIcon: Icon(Icons.date_range_rounded)),
+                  decoration: InputDecoration(labelText: 'Start date and time'.tr(), suffixIcon: Icon(Icons.date_range_rounded)),
                 ),
                 const SizedBox(height: 20),
                 //========================== Duration input ============================
@@ -110,7 +111,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                   validator: (value) => Validation.isEmptyValidation(value),
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-                  decoration: const InputDecoration(labelText: 'Duration', suffixIcon: Icon(Icons.timer)),
+                  decoration: InputDecoration(labelText: 'Duration'.tr(), suffixIcon: Icon(Icons.timer)),
                 ),
                 const SizedBox(height: 20),
                 //========================== Unit input ============================
@@ -120,7 +121,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                     label: const Text("Unit"),
                     dropdownMenuEntries: ["minute", "day"]
                         .map(
-                          (e) => DropdownMenuEntry(value: e, label: e),
+                          (e) => DropdownMenuEntry(value: e, label: e.tr()),
                         )
                         .toList()),
                 const SizedBox(height: 20),
@@ -128,7 +129,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                 DropdownMenu(
                     expandedInsets: EdgeInsets.zero,
                     controller: progressController,
-                    label: const Text("Task Progress"),
+                    label: Text("Task Progress".tr()),
                     dropdownMenuEntries: context
                         .read<ColumnBloc>()
                         .colunmEntities
@@ -152,7 +153,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                       if (current is CreateTaskState) {
                         switch (current.baseResponse.status) {
                           case Status.success:
-                            AppSnackBar.show(context: context, message: "Added Successfully", status: SnackBarStatus.success);
+                            AppSnackBar.show(context: context, message: "Added Successfully".tr(), status: SnackBarStatus.success);
 
                             AppRoutes.pop(context);
                             break;
@@ -185,7 +186,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                                 );
                           }
                         },
-                        child: state is CreateTaskState && state.baseResponse.status == Status.loading ? const CircularProgressIndicator() : const Text("Create"),
+                        child: state is CreateTaskState && state.baseResponse.status == Status.loading ? const CircularProgressIndicator() : Text("Create".tr()),
                       );
                     },
                   ),

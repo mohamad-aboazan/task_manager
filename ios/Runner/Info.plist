@@ -62,5 +62,11 @@
 		<key>NSUserNotificationUsageDescription</key>
 		<string>We use this to send you notifications.</string>
 
+		<key>CFBundleLocalizations</key>
+		<array>
+			<string>en</string>
+			<string>de</string>
+		</array>
+
 	</dict>
 </plist>
