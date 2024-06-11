@@ -32,7 +32,7 @@ First, clone the project repository from GitHub:
 To retrieve the latest APK version, you'll need to push the code to trigger the CI/CD pipeline. After pushing the code, please add your email to the workflow file (`codemagic.yaml`) and wait for approximately 5 minutes. You will receive an email containing the latest version of the APK.
 
 ## Demo - Screenshots - APK
-![assets](https://drive.google.com/drive/folders/1jbFa7JG0inznOKe3yY9sEmSIwDbGgKcG?usp=sharing)
+https://drive.google.com/drive/folders/1jbFa7JG0inznOKe3yY9sEmSIwDbGgKcG?usp=sharing
 
 # Task Manager Architecture
 
