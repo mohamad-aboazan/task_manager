@@ -7,7 +7,12 @@ import 'package:flutter/material.dart';
 /// replacing, and removing routes from the navigator stack. By encapsulating these
 /// operations in a single class, it reduces code redundancy and improves readability
 /// when performing navigation within the application.
+///
+/// Note : For larger projects, it's recommended to use named routes (Go_Route) and route constants
+/// to manage navigation. However, for smaller projects or quick prototyping, direct navigation
+/// methods provided by this class can be used.
 ///======================================================================================================
+
 
 class AppRoutes {
   static push(context, Widget screen) {
