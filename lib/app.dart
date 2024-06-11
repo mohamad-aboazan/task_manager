@@ -43,6 +43,7 @@ class _MyAppState extends State<MyApp> {
               builder: (context, state) {
                 return MaterialApp(
                   title: 'Task Manager'.tr(),
+                  debugShowCheckedModeBanner: false,
                   localizationsDelegates: context.localizationDelegates,
                   supportedLocales: context.supportedLocales,
                   locale: context.locale,

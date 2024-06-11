@@ -18,10 +18,10 @@ import 'package:task_manager_app/features/kanban/presentation/widgets/column_wid
 ///======================================================================================================
 /// Home Screen for the Kanban feature of the application.
 ///
-/// This screen displays the current project's name as the app bar title and a list of columns 
-/// representing different stages of tasks in the Kanban board. It allows users to drag and drop 
-/// tasks between columns. Users can also navigate to the notifications screen using the 
-/// notifications icon in the app bar and create new columns by tapping the "Create New Column" 
+/// This screen displays the current project's name as the app bar title and a list of columns
+/// representing different stages of tasks in the Kanban board. It allows users to drag and drop
+/// tasks between columns. Users can also navigate to the notifications screen using the
+/// notifications icon in the app bar and create new columns by tapping the "Create New Column"
 /// button.
 ///
 /// Features:
@@ -41,7 +41,6 @@ import 'package:task_manager_app/features/kanban/presentation/widgets/column_wid
 /// Routes:
 ///   - Notifications Screen: Navigates to the notifications screen.
 ///======================================================================================================
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

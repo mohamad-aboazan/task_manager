@@ -1,5 +1,5 @@
 {
-    "Add New Task": "Addzxxzz New Task",
+    "Add New Task": "Add New Task",
     "Task Manager": "Task Manager",
     "History": "History",
     "Delete": "Delete",
@@ -29,7 +29,7 @@
     "Create": "Create",
     "Settings": "Settings",
     "Theme Mode": "Theme Mode",
-    "Switch to Germany": "Switch to Germany",
+    "Switch to German": "Switch to Germany",
     "Switch to English": "Switch to English",
     "Create Project": "Create Project",
     "Project Name": "Project Name",
@@ -40,5 +40,6 @@
     "Choose Column Color: ": "Choose Column Color: ",
     "must be not empty": "must be not empty",
     "Your Projects": "Your Projects",
-    "Add New Project": "Add New Project"
+    "Add New Project": "Add New Project",
+    "Task Reminder": "Task Reminder'"
 }

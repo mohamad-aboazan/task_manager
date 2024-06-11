@@ -35,7 +35,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Container(
         margin: const EdgeInsets.all(30),
         width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             InkWell(
               onTap: () {
@@ -46,45 +48,65 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     brightness: _isDarkMode ? Brightness.light : Brightness.dark);
                 _isDarkMode = !_isDarkMode;
               },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Theme Mode".tr(),
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    _isDarkMode
-                        ? Icon(
-                            Icons.wb_sunny,
-                            color: Colors.yellow,
-                            key: ValueKey<bool>(_isDarkMode),
-                            size: 30,
-                          )
-                        : Icon(
-                            Icons.nights_stay,
-                            key: ValueKey<bool>(_isDarkMode),
-                            size: 30,
-                          )
-                  ],
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Theme Mode".tr(),
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  _isDarkMode
+                      ? Icon(
+                          Icons.wb_sunny,
+                          color: Colors.yellow,
+                          key: ValueKey<bool>(_isDarkMode),
+                          size: 30,
+                        )
+                      : Icon(
+                          Icons.nights_stay,
+                          key: ValueKey<bool>(_isDarkMode),
+                          size: 30,
+                        )
+                ],
               ),
             ),
-            Column(
+            const Divider(height: 30),
+            Text(
+              "Language".tr(),
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 10),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    context.setLocale(const Locale(Constant.de));
-                  },
-                  child: Text('Switch to Germany'.tr()),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.setLocale(const Locale(Constant.de));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Switch to Germany'.tr(),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    context.setLocale(Locale(Constant.en));
-                  },
-                  child: Text('Switch to English'.tr()),
+                const SizedBox(width: 20),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.setLocale(const Locale(Constant.en));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Switch to English'.tr(),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

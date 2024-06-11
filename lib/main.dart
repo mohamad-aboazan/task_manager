@@ -30,8 +30,8 @@ Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await EasyLocalization.ensureInitialized();
-
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   await di.setup();
   runApp(
     MultiBlocProvider(

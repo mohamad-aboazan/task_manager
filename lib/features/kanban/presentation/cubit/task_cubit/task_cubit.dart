@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:task_manager_app/core/entities/base_state.dart';
 import 'package:task_manager_app/core/services/local_notification_service.dart';
 import 'package:task_manager_app/core/utils/hepler_functions.dart';
@@ -137,7 +138,7 @@ class TaskBloc extends Cubit<TaskState> {
   void _scheduleNotification(Task task) {
     _localNotificationService.scheduleNotification(
       id: task.getShortId(),
-      title: 'Task Reminder',
+      title: 'Task Reminder'.tr(),
       body: task.content ?? '',
       scheduledDate: DateTime.parse(task.due?.datetime ?? ''),
       payload: task.due?.datetime ?? '',
@@ -148,7 +149,7 @@ class TaskBloc extends Cubit<TaskState> {
     _localNotificationService.cancelNotification(task.getShortId());
     _localNotificationService.scheduleNotification(
       id: task.getShortId(),
-      title: 'Task Reminder',
+      title: 'Task Reminder'.tr(),
       body: task.content ?? '',
       scheduledDate: DateTime.parse(task.due?.datetime ?? ''),
       payload: task.due?.datetime ?? '',
