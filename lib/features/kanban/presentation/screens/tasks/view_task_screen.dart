@@ -144,7 +144,7 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
                           label: Text("Unit".tr()),
                           dropdownMenuEntries: ["minute", "day"]
                               .map(
-                                (e) => DropdownMenuEntry(value: e, label: e.tr()),
+                                (e) => DropdownMenuEntry(value: e, label: e),
                               )
                               .toList()),
                       const SizedBox(height: 20),

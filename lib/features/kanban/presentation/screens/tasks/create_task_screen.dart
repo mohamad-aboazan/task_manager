@@ -121,7 +121,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                     label: const Text("Unit"),
                     dropdownMenuEntries: ["minute", "day"]
                         .map(
-                          (e) => DropdownMenuEntry(value: e, label: e.tr()),
+                          (e) => DropdownMenuEntry(value: e, label: e),
                         )
                         .toList()),
                 const SizedBox(height: 20),
