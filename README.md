@@ -21,12 +21,10 @@ Follow these steps to get the project up and running:
 
 First, clone the project repository from GitHub:
 
-```bash
-git clone https://github.com/mohamad-aboazan/task_manager
-cd task_manager
-flutter pub get
-flutter run
-
+- git clone https://github.com/mohamad-aboazan/task_manager
+- cd task_manager
+- flutter pub get
+- flutter run
 
 # Task Manager Architecture
 
