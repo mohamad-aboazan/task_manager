@@ -1,5 +1,6 @@
 Sure, here's a draft for the documentation:
 # Task Manager Flutter Project
+![App Logo](assets/images/app_logo.png)
 
 Welcome to the Task Manager Flutter project! This guide will help you get started with setting up and running the project on your local machine.
 
