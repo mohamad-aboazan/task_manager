@@ -38,7 +38,7 @@ To retrieve the latest APK version, you'll need to push the code to trigger the 
 
 ## A short description about "Clean Architecture"
 
-![architecture](./art/arch_1.png?raw=true)
+![architecture](assets/images/arch_1.png)
 
 There are two main points to understand about the architecture: it splits the project into different layers and conforms to the Dependency rule.
 
@@ -56,15 +56,12 @@ Usually, when working with this architecture, you'll come across some additional
 
 - Data Transfer Objects (DTOs): Are objects used for transferring data between different layers of the system. They serve as _**simple containers that carry data**_ without any behavior or business logic
 
-I recommend checking out [this link](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html), provided by Robert C. Martin ('Uncle Bob'), which offers what today may be considered the 'official' explanation
-
-
 
 ## Clean Architecture and how it's applied in this project
 
 The figure bellow represents the variation applied in this project:
 
-![architecture](./art/arch_2.png?raw=true)
+![architecture](assets/images/arch_2.png)
 
 In this case, we're only using three layers: Presentation, Domain and Data.
 
@@ -107,18 +104,8 @@ DTOs are specifically designed for deserializing and serializing data when commu
 
 The specific usage of these classes may vary from project to project. The names assigned to them can differ, and there can even be additional types of classes, such as those specifically designed for database mapping. However, the underlying principle remains consistent: By utilizing these classes alongside mappers, we can provide each layer with a suitable data format and the flexibility to adapt to future changes.
 
-# References
 
-- [Joe Birch - Google GDE: Clean Architecture Course](https://caster.io/courses/android-clean-architecture)
-- [Reso Coder - Flutter TDD Clean Architecture](https://www.youtube.com/playlist?list=PLB6lc7nQ1n4iYGE_khpXRdJkJEp9WOech)
-- [Majid Hajian | Flutter Europe - Strategic Domain Driven Design to Flutter](https://youtu.be/lGv6KV5u75k)
-- [Guide to app architecture - Jetpack Guides](https://developer.android.com/jetpack/docs/guide#common-principles)
-- [ABHISHEK TYAGI - TopTal Developer: Better Android Apps Using MVVM with Clean Architecture](https://www.toptal.com/android/android-apps-mvvm-with-clean-architecture)
-- [Jason Taylor (+20 years of experience) - Clean Architecture ](https://youtu.be/Zygw4UAxCdg)
-- [Uncle Bob](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
----
-
-# Kanban Feature Documentation
+# Kanban Folder Structure
 
 ## Overview
 
