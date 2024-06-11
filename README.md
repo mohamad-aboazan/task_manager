@@ -27,7 +27,7 @@ First, clone the project repository from GitHub:
 - flutter pub get
 - flutter run
 
-## Obtaining the APK Version
+## CICD
 
 To retrieve the latest APK version, you'll need to push the code to trigger the CI/CD pipeline. After pushing the code, please add your email to the workflow file (`codemagic.yaml`) and wait for approximately 5 minutes. You will receive an email containing the latest version of the APK.
 
@@ -58,8 +58,6 @@ Usually, when working with this architecture, you'll come across some additional
 
 
 ## Clean Architecture and how it's applied in this project
-
-The figure bellow represents the variation applied in this project:
 
 ![architecture](assets/images/arch_2.png)
 
@@ -105,7 +103,7 @@ DTOs are specifically designed for deserializing and serializing data when commu
 The specific usage of these classes may vary from project to project. The names assigned to them can differ, and there can even be additional types of classes, such as those specifically designed for database mapping. However, the underlying principle remains consistent: By utilizing these classes alongside mappers, we can provide each layer with a suitable data format and the flexibility to adapt to future changes.
 
 
-# Kanban Folder Structure
+# Task Manager Folder Structure
 
 ## Overview
 
