@@ -12,8 +12,8 @@ abstract class LogContent {
     TaskLogTypes.commentAdded: "You have added task comment at {{timer}}",
     TaskLogTypes.commentUpdated: "You have updated task comment at {{timer}}",
     TaskLogTypes.commentDeleted: "You have deleted task comment at {{timer}}",
-    TaskLogTypes.startTimer: "You have started timer at ",
-    TaskLogTypes.stopTimer: "You have stopped timer at ",
+    TaskLogTypes.startTimer: "You have started timer at {{timer}}",
+    TaskLogTypes.stopTimer: "You have stopped timer at {{timer}}",
     TaskLogTypes.changeStatus: "You have changed status task to {{status}} at {{timer}}",
   };
 
