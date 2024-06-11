@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+///======================================================================================================
+/// A utility class for showing customized SnackBars with different statuses.
+///======================================================================================================
+
 enum SnackBarStatus {
   success,
   error,
@@ -22,7 +26,7 @@ class AppSnackBar {
         break;
       case SnackBarStatus.warning:
         backgroundColor = Colors.amber;
-        break;    
+        break;
       default:
         backgroundColor = Colors.blue;
     }

@@ -5,6 +5,11 @@ import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/screens/tasks/task_history_screen.dart';
 
+
+///======================================================================================================
+/// Widget for displaying a popup menu button for task-related actions.
+///======================================================================================================
+
 class TaskPopupMenuButton extends StatelessWidget {
   Task task;
   TaskPopupMenuButton({super.key, required this.task});

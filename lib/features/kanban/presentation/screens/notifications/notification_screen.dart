@@ -5,6 +5,13 @@ import 'package:task_manager_app/core/entities/base_state.dart';
 import 'package:task_manager_app/core/utils/assets.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/notification_cubit/notification_cubit.dart';
 
+///======================================================================================================
+/// Screen for displaying notifications received by the app.
+///
+/// This screen retrieves all scheduled notifications using the `NotificationBloc`, filters them to
+/// include only notifications that have received, and displays them in a list view.
+///======================================================================================================
+
 class NotificationsScreeon extends StatefulWidget {
   const NotificationsScreeon({super.key});
 

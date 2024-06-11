@@ -1,3 +1,7 @@
+///======================================================================================================
+/// Provides validation methods for various input fields.
+///======================================================================================================
+
 class Validation {
   static String? passwordValidation(String value) {
     if (value.isEmpty) {

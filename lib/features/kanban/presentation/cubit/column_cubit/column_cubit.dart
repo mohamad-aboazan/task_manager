@@ -7,6 +7,21 @@ import 'package:task_manager_app/features/kanban/domain/usercase/column_usecases
 
 part "column_state.dart";
 
+/// =========================================================================================================
+/// BLoC for managing columns in the Kanban application.
+///
+/// This BLoC is responsible for handling columns within the Kanban application. It provides functionalities
+/// for creating and retrieving columns.
+///
+/// Features:
+///   - Create and retrieve columns.
+///
+/// Usage:
+///   - Instantiate `ColumnBloc` with required dependencies.
+///   - Use methods like `createColumn`, `getColumns` to perform column operations.
+///
+///=========================================================================================================
+
 class ColumnBloc extends Cubit<ColumnState> {
   final GetColumnsUsecase _getColumnsUsecase;
   final CreateColumnUsecase _createColumnUsecase;

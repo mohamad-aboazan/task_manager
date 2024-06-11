@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:task_manager_app/core/utils/constant.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
 
+///======================================================================================================
+/// Widget for displaying a task card.
+///
+/// This widget represents a task card containing information about a task, such as its content and priority.
+/// It also displays the number of comments associated with the task.
+///
+/// Parameters:
+///   - `task`: The task to display on the card.
+///======================================================================================================
+
 class TaskCard extends StatelessWidget {
   Task task;
   TaskCard({super.key, required this.task});

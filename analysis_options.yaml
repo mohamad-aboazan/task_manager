@@ -10,6 +10,7 @@
 analyzer:
   errors:
     avoid_print: ignore
+    dangling_library_doc_comments: ignore
     must_be_immutable: ignore
     prefer_collection_literals: ignore
     unrelated_type_equality_checks: ignore

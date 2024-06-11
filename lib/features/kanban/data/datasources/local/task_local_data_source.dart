@@ -3,6 +3,28 @@ import 'package:task_manager_app/features/kanban/data/dto/create_task_dto.dart';
 import 'package:task_manager_app/features/kanban/data/dto/update_task_dto.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
 
+/// =========================================================================================================
+/// Local data source for managing tasks.
+///
+/// This data source handles CRUD operations related to tasks in the local database using Hive.
+///
+/// Dependencies:
+///   - `Hive`: Hive library for local database management.
+///   - `CreateTaskDto`, `UpdateTaskDto`: Data transfer objects for creating and updating tasks.
+///   - `Task`: Entity representing a task.
+///
+/// Abstract Methods:
+///   - `getTasks`: Retrieves tasks associated with a specific project.
+///   - `createTask`: Creates a new task.
+///   - `updateTask`: Updates an existing task.
+///   - `getTask`: Retrieves a task by its ID.
+///
+/// Usage:
+///   - Implement the `TaskLocalDataSource` abstract class with the required methods.
+///   - Use `Hive` to interact with the local database to perform CRUD operations on tasks.
+///
+///=========================================================================================================
+
 abstract class TaskLocalDataSource {
   Future<List<Task?>> getTasks(String projectId);
   Future<Task?> createTask(CreateTaskDto createTaskDto);

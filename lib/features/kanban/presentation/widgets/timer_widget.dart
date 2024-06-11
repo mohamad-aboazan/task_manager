@@ -4,6 +4,10 @@ import 'package:task_manager_app/core/utils/log_content.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/timer_cubit/timer_cubit.dart';
 
+///======================================================================================================
+/// Widget for displaying and controlling the timer for a task.
+///======================================================================================================
+
 class TimerWidget extends StatelessWidget {
   final String id;
 

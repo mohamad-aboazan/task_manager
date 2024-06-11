@@ -9,6 +9,11 @@ import 'package:task_manager_app/features/kanban/presentation/screens/home/home_
 import 'package:task_manager_app/features/kanban/presentation/screens/projects/create_project.screen.dart';
 import 'package:task_manager_app/features/kanban/presentation/screens/settings/settings_screen.dart';
 
+///======================================================================================================
+/// This widget represents the application drawer, offering navigation options and displaying projects.
+/// It also includes options to add a new project and access settings.
+///======================================================================================================
+
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 

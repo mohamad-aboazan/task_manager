@@ -14,6 +14,34 @@ import 'package:task_manager_app/features/kanban/presentation/screens/colunms/cr
 import 'package:task_manager_app/features/kanban/presentation/screens/notifications/notification_screen.dart';
 import 'package:task_manager_app/features/kanban/presentation/widgets/column_widget.dart';
 
+///======================================================================================================
+/// Home Screen for the Kanban feature of the application.
+///
+/// This screen displays the current project's name as the app bar title and a list of columns 
+/// representing different stages of tasks in the Kanban board. It allows users to drag and drop 
+/// tasks between columns. Users can also navigate to the notifications screen using the 
+/// notifications icon in the app bar and create new columns by tapping the "Create New Column" 
+/// button.
+///
+/// Features:
+///   - Displays the current project's name in the app bar.
+///   - Shows a list of columns representing different stages of tasks.
+///   - Allows users to drag and drop tasks between columns.
+///   - Provides a button to create new columns.
+///   - Allows users to navigate to the notifications screen.
+///
+/// Dependencies:
+///   - `ColumnBloc`: Used to fetch columns data.
+///   - `TaskBloc`: Used to fetch tasks data and update task information.
+///   - `ProjectBloc`: Used to access the current project's information.
+///   - `AppDrawer`: Custom widget for the app drawer.
+///   - `NotificationsScreeon`: Screen for displaying notifications.
+///
+/// Routes:
+///   - Notifications Screen: Navigates to the notifications screen.
+///======================================================================================================
+
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -22,7 +50,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  ScrollController scrollController = ScrollController();
+  ScrollController horizontalScrollController = ScrollController();
   LocalNotificationService notificationService = LocalNotificationService();
 
   @override
@@ -58,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Expanded(
               child: SingleChildScrollView(
-            controller: scrollController,
+            controller: horizontalScrollController,
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             child: BlocBuilder<ColumnBloc, ColumnState>(
@@ -93,8 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           }, builder: (BuildContext context, List<dynamic> accepted, List<dynamic> rejected) {
                             return ColumnWidget(
                               columnEntity: state.baseResponse.data![i],
-                              scrollController: scrollController,
-                              id: i,
+                              horizontalScrollController: horizontalScrollController,
                             );
                           }),
                         ]

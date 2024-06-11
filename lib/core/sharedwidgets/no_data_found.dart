@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+///======================================================================================================
+/// A widget to display a message when no data is found.
+///======================================================================================================
+
 class NoDataFound extends StatelessWidget {
   IconData? icon;
   String content;

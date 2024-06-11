@@ -22,6 +22,20 @@ import 'package:task_manager_app/features/kanban/presentation/widgets/task_popup
 import 'package:task_manager_app/features/kanban/presentation/widgets/timer_widget.dart';
 import 'package:task_manager_app/features/kanban/presentation/widgets/priority_dropdown_widget.dart';
 
+
+///======================================================================================================
+/// Screen for viewing and updating task details.
+///
+/// This screen allows users to view and update details of a task, including content, description, due date and time,
+/// duration, progress, priority, reminder, and comments. Users can also save changes made to the task.
+///
+/// Parameters:
+///   - `context`: The build context used to access dependencies.
+///   - `task`: The task whose details are being viewed and updated.
+///   - `colunmEntities`: The list of column entities used for dropdown selection.
+///======================================================================================================
+
+
 class ViewTaskScreen extends StatefulWidget {
   final t.Task task;
   List<ColumnEntity>? colunmEntities;

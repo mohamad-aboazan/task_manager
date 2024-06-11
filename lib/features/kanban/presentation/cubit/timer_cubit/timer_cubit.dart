@@ -3,6 +3,28 @@ import 'dart:async';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'timer_state.dart';
 
+///======================================================================================================
+/// BLoC for managing timers associated with tasks in the Kanban board.
+///
+/// This BLoC handles the start, stop, and toggle functionalities of timers for each task. It also manages
+/// the state of timers and saves their state using Hive for persistence.
+///
+/// Features:
+///   - Start, stop, and toggle timers for tasks.
+///   - Save and load timer state using Hive for persistence.
+///   - Check if a task's timer is currently running.
+///
+/// Dependencies:
+///   - `Hive`: Used for local storage to save and load timer states.
+///   - `TimerState`: Model class representing the state of timers.
+///
+/// Usage:
+///   - Create an instance of `TimerBloc` in the application to manage timers associated with tasks.
+///   - Call methods like `startTimer`, `stopTimer`, or `toggleTimer` to control timers for specific tasks.
+///   - Check if a task's timer is running using `isTaskRunning`.
+///
+///======================================================================================================
+
 class TimerBloc extends Cubit<Map<String, int>> {
   TimerBloc() : super({}) {
     _initializeHive();

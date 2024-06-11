@@ -3,6 +3,15 @@ import 'package:task_manager_app/core/route/route.dart';
 import 'package:task_manager_app/core/utils/assets.dart';
 import 'package:task_manager_app/features/kanban/presentation/screens/projects/create_project.screen.dart';
 
+///======================================================================================================
+/// Widget for displaying a welcome screen to the user.
+///
+/// This screen provides a welcoming message and introduction to the Task Manager app. It encourages users
+/// to get started by creating their first project.
+///
+/// Users are greeted with the app icon, a welcoming message, and an invitation to start using the app.
+///======================================================================================================
+
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 

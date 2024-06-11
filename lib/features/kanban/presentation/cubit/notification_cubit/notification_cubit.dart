@@ -6,6 +6,23 @@ import 'package:task_manager_app/features/kanban/domain/entities/project.dart';
 
 part "notification_state.dart";
 
+/// ---------------------------------------------------------------------------------------------------------
+/// BLoC for managing notifications in the Kanban application.
+///
+/// This BLoC is responsible for handling notifications within the Kanban application. It provides functionalities
+/// for retrieving notifications by ID and getting all scheduled notifications.
+///
+/// Features:
+///   - Retrieve a notification by its ID.
+///   - Get all scheduled notifications.
+///
+/// Usage:
+///   - Instantiate `NotificationBloc` with the required `LocalNotificationService`.
+///   - Use `getNotificationById` to retrieve a notification by its ID.
+///   - Use `getAllScheduledNotifications` to get all scheduled notifications.
+///
+///---------------------------------------------------------------------------------------------------------
+
 class NotificationBloc extends Cubit<NotificationState> {
   final LocalNotificationService _localNotificationService;
 

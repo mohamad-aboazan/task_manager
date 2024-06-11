@@ -15,6 +15,30 @@ import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/t
 import 'package:task_manager_app/features/kanban/presentation/widgets/priority_dropdown_widget.dart';
 import 'package:task_manager_app/features/kanban/presentation/widgets/reminder_switch_widget.dart';
 
+///======================================================================================================
+/// Widget for creating a new task.
+///
+/// This screen allows users to create a new task by providing various details such as title, description,
+/// start date and time, duration, progress, priority, and reminder settings.
+///
+/// Users can input the following information:
+///   - Title: The title of the task.
+///   - Description: A description of the task.
+///   - Start Date and Time: The start date and time of the task.
+///   - Duration: The duration of the task.
+///   - Unit: The unit of the duration (minute or day).
+///   - Task Progress: The progress of the task, selected from available columns.
+///   - Priority: The priority of the task, selected from a dropdown menu.
+///   - Reminder: Toggle switch to enable or disable reminders for the task.
+///
+/// Upon successful creation of the task, users are shown a success message, and the screen navigates back
+/// to the previous screen. In case of an error during task creation, an error message is displayed.
+///
+/// Parameters:
+///   - `context`: The build context used to navigate to other screens and access dependencies.
+///   - `columnEntity`: The column entity representing the progress of the task.
+///======================================================================================================
+
 class CreateTaskScreen extends StatefulWidget {
   ColumnEntity? columnEntity;
   CreateTaskScreen({super.key, this.columnEntity});

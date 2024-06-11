@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager_app/core/network/network_info.dart';
 import 'package:task_manager_app/core/services/api_service.dart';
 import 'package:task_manager_app/core/services/local_notification_service.dart';
+import 'package:task_manager_app/features/kanban/data/datasources/local/task_local_data_source.dart';
 import 'package:task_manager_app/features/kanban/data/datasources/local/task_log_local_data_source.dart';
 import 'package:task_manager_app/features/kanban/data/datasources/remote/column_remote_data_source.dart';
 import 'package:task_manager_app/features/kanban/data/datasources/remote/comment_remote_data_sourc.dart';
@@ -46,6 +47,15 @@ import 'package:task_manager_app/features/kanban/presentation/cubit/timer_cubit/
 
 final sl = GetIt.instance;
 
+/// =================================================================================================
+/// The `setup` function initializes the dependency injection container using GetIt.
+/// It registers all the necessary dependencies including Blocs, UseCases, Repositories,
+/// DataSources, Services, and External libraries required for the application.
+///
+/// This function should be called once at the start of the application to set up
+/// all the dependencies.
+/// =================================================================================================
+
 Future<void> setup() async {
   //Bloc
   sl.registerFactory(() => ProjectBloc(
@@ -81,7 +91,7 @@ Future<void> setup() async {
   // repository
   sl.registerLazySingleton<ProjectRepository>(() => ProjectRepositoryImpl(projectRemoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<ColumnRepository>(() => ColumnRepositoryImpl(columnRemoteDataSource: sl(), networkInfo: sl()));
-  sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(taskRemoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(taskRemoteDataSource: sl(), taskLocalDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<CommentRepository>(() => CommentRepositoryImpl(commentRemoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<TaskLogRepository>(() => TaskLogRepositoryImp(taskLogLocalDataSource: sl()));
 
@@ -92,6 +102,7 @@ Future<void> setup() async {
   sl.registerLazySingleton<CommentRemoteDataSource>(() => CommentRemoteDataSourceImp(apiService: sl()));
 
   // local Datasources
+  sl.registerLazySingleton<TaskLocalDataSource>(() => TaskLocalDataSourceImp());
   sl.registerLazySingleton<TaskLogLocalDataSource>(() => TaskLogLocalDataSourceImp());
 
   // Services

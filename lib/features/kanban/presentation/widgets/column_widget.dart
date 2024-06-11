@@ -8,32 +8,39 @@ import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/t
 import 'package:task_manager_app/features/kanban/presentation/screens/tasks/create_task_screen.dart';
 import 'package:task_manager_app/features/kanban/presentation/widgets/card/draggable_task_card.dart';
 
+///======================================================================================================
+/// Widget for displaying a column in a Kanban board.
+///
+/// This widget represents a column in a Kanban board. It displays the name of the column, the number
+/// of tasks in the column, and a list of draggable task cards. It also provides a button to add a new task
+/// to the column.
+///
+/// Parameters:
+///   - `columnEntity`: The entity representing the column.
+///   - `horizontalScrollController`: The horizontal scroll controller for the Kanban.
+///======================================================================================================
+
 class ColumnWidget extends StatefulWidget {
   final ColumnEntity columnEntity;
-  ScrollController? scrollController;
-  int id;
+  ScrollController? horizontalScrollController;
 
-  ColumnWidget({super.key, required this.columnEntity, required this.scrollController, required this.id});
+  ColumnWidget({super.key, required this.columnEntity, required this.horizontalScrollController});
 
   @override
   State<ColumnWidget> createState() => _ColumnWidgetState();
 }
 
 class _ColumnWidgetState extends State<ColumnWidget> {
-  late ScrollController _scrollController;
   late ScrollController _horizontalScrollController;
   double scrollingOffset = 0;
   @override
   void initState() {
     super.initState();
-
-    _scrollController = ScrollController();
     _horizontalScrollController = ScrollController();
   }
 
   @override
   void dispose() {
-    _scrollController.dispose();
     _horizontalScrollController.dispose();
     super.dispose();
   }
@@ -82,28 +89,20 @@ class _ColumnWidgetState extends State<ColumnWidget> {
                 ),
               ),
               Expanded(
-                child: Builder(builder: (context) {
+                  child: ListView.builder(
+                itemCount: tasks.length,
+                itemBuilder: (context, i) {
                   if (state is GetTasksState && state.baseResponse.status == Status.loading) {
-                    print(state);
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
-                  return SingleChildScrollView(
-                    controller: _horizontalScrollController,
-                    scrollDirection: Axis.horizontal,
-                    child: Column(
-                      children: [
-                        for (int i = 0; i < tasks.length; i++)
-                          DraggableTaskCard(
-                            task: tasks[i],
-                            scrollController: widget.scrollController,
-                          )
-                      ],
-                    ),
+                  return DraggableTaskCard(
+                    task: tasks[i],
+                    horizontalScrollController: widget.horizontalScrollController,
                   );
-                }),
-              ),
+                },
+              )),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: TextButton.icon(

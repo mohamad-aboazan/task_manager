@@ -4,6 +4,27 @@ import 'package:task_manager_app/features/kanban/data/dto/create_comment_dto.dar
 import 'package:task_manager_app/features/kanban/data/dto/update_comment_dto.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/comment.dart';
 
+/// ============================================================================================
+/// Remote data source for managing comments.
+///
+/// This data source handles operations related to comments through remote API calls using the `ApiService`.
+///
+/// Dependencies:
+///   - `ApiService`: Service for making API calls.
+///   - `Endpoints`: Utility class for defining API endpoints.
+///
+/// Abstract Methods:
+///   - `getComments`: Fetches comments for a specific task from the remote API.
+///   - `createComment`: Creates a new comment for a task via the remote API.
+///   - `updateComment`: Updates an existing comment via the remote API.
+///   - `deleteComment`: Deletes a comment via the remote API.
+///
+/// Usage:
+///   - Implement the `CommentRemoteDataSource` abstract class with the required methods.
+///   - Utilize `ApiService` to make HTTP requests to the appropriate endpoints for comment management.
+///
+/// ============================================================================================
+
 abstract class CommentRemoteDataSource {
   Future<List<Comment>> getComments(String taskId);
   Future<Comment> createComment(CreateCommentDto createCommentDto);

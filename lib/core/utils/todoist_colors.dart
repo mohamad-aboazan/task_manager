@@ -1,6 +1,7 @@
+///======================================================================================================
+/// Provides color codes and names allowed in Todoist.
+///======================================================================================================
 class TodoistColors {
-  // color_utils.dart
-
 // List of colors
   static List<int> colors = [0xffb8256f, 0xffdb4035, 0xffff9933, 0xfffad000, 0xffafb83b, 0xff7ecc49, 0xff299438, 0xff6accbc, 0xff158fad, 0xff14aaf5, 0xff96c3eb, 0xff4073ff, 0xff884dff, 0xffaf38eb, 0xffeb96eb, 0xffe05194, 0xffe05194, 0xff808080, 0xffb8b8b8, 0xffccac93];
 

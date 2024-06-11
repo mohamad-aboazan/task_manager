@@ -3,6 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/task_cubit/task_cubit.dart';
 
+///======================================================================================================
+/// Screen for displaying the history of a task.
+///
+/// This screen displays the history of a task, including all the actions and events related to the task.
+/// The history is fetched from the task bloc using the task's ID and displayed in reverse chronological order.
+///
+/// Parameters:
+///   - `context`: The build context used to access dependencies.
+///   - `task`: The task for which the history is being displayed.
+///======================================================================================================
+
+
 class TaskHistoryScreen extends StatefulWidget {
   Task task;
   TaskHistoryScreen({super.key, required this.task});

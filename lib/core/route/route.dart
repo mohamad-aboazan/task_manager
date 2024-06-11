@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 
+///======================================================================================================
+/// A utility class to simplify navigation operations in Flutter applications.
+///
+/// This class provides static methods for common navigation tasks, such as pushing,
+/// replacing, and removing routes from the navigator stack. By encapsulating these
+/// operations in a single class, it reduces code redundancy and improves readability
+/// when performing navigation within the application.
+///======================================================================================================
+
 class AppRoutes {
   static push(context, Widget screen) {
     Navigator.push(context, MaterialPageRoute(

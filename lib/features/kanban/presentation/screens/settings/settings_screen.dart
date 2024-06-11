@@ -4,6 +4,11 @@ import 'package:task_manager_app/core/utils/todoist_colors.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/project_cubit/project_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/theme_cubit/theme_cubit.dart';
 
+///======================================================================================================
+/// Screen for managing application settings.
+/// This screen allows users to manage application settings, such as theme mode.
+///======================================================================================================
+
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 

@@ -15,6 +15,35 @@ import 'package:task_manager_app/features/kanban/domain/usercase/task_usecases/u
 
 part "task_state.dart";
 
+/// ---------------------------------------------------------------------------------------------------------
+/// BLoC for managing tasks in the Kanban application.
+///
+/// This BLoC is responsible for handling tasks within the Kanban application. It provides functionalities
+/// for creating, updating, deleting tasks, as well as retrieving task logs and managing local notifications
+/// for task reminders.
+///
+/// Features:
+///   - Create, update, delete tasks.
+///   - Retrieve task logs and manage their storage.
+///   - Schedule, update, and cancel local notifications for task reminders.
+///
+/// Dependencies:
+///   - `Bloc`: BLoC library for state management.
+///   - `BaseResponse`: Entity representing the base response for operations.
+///   - `LocalNotificationService`: Service for managing local notifications.
+///   - `HelperFunctions`: Utility functions for common operations.
+///   - `Task`, `CreateTaskDto`, `UpdateTaskDto`: Entities representing tasks and their data transfer objects.
+///   - `GetTasksUsecase`, `CreateTaskUsecase`, `UpdateTaskUsecase`, `DeleteTaskUsecase`: Use cases for task operations.
+///   - `NewTaskLogUsecase`, `GetTasksLogsUescas`: Use cases for task log operations.
+///
+/// Usage:
+///   - Instantiate `TaskBloc` with required dependencies.
+///   - Use methods like `createTask`, `updateTask`, `deleteTask` to perform task operations.
+///   - Access task histories using `getTaskHistories` method.
+///   - Manage local notifications for task reminders.
+///
+///---------------------------------------------------------------------------------------------------------
+
 class TaskBloc extends Cubit<TaskState> {
   final GetTasksUsecase _getTasksUsecase;
   final CreateTaskUsecase _createTaskUsecase;

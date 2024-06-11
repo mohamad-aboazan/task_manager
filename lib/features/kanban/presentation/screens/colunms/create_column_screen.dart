@@ -7,6 +7,25 @@ import 'package:task_manager_app/features/kanban/data/dto/create_column_dto.dart
 import 'package:task_manager_app/features/kanban/presentation/cubit/column_cubit/column_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/widgets/dialog/color_picker_dialog.dart';
 
+///======================================================================================================
+/// Screen for creating a new column in the Kanban board.
+///
+/// This screen allows users to input the name and choose the color of the new column. Upon successful
+/// creation of the column, it fetches the updated list of columns to reflect the changes.
+///
+/// Features:
+///   - Input field for column name.
+///   - Color picker for selecting the column color.
+///
+/// Dependencies:
+///   - `ColumnBloc`: Used to create a new column and fetch updated columns data.
+///   - `ColorPickerDialog`: Custom dialog for picking colors.
+///   - `AppSnackBar`: Custom widget for displaying snack bars.
+///
+/// Routes:
+///   - This screen can be accessed from the home screen by tapping the "Create New Column" button.
+///======================================================================================================
+
 class CreateColumnScreen extends StatefulWidget {
   const CreateColumnScreen({super.key});
 

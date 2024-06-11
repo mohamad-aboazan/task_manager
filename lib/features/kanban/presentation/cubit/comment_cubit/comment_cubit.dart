@@ -10,6 +10,23 @@ import 'package:task_manager_app/features/kanban/domain/usercase/comment_usecase
 
 part "comment_state.dart";
 
+/// =========================================================================================================
+/// BLoC for managing comments in the Kanban application.
+///
+/// This BLoC is responsible for handling comments within the Kanban application. It provides functionalities
+/// for creating, updating, and deleting comments, as well as retrieving comments for a specific task.
+///
+/// Features:
+///   - Create, update, and delete comments.
+///   - Retrieve comments for a specific task.
+///
+/// Usage:
+///   - Instantiate `CommentBloc` with required dependencies.
+///   - Use methods like `createComment`, `updateComment`, `deleteComment` to perform comment operations.
+///   - Retrieve comments for a specific task using `getComments` method.
+///
+///=========================================================================================================
+
 class CommentBloc extends Cubit<CommentState> {
   final GetCommentsUsecase _getCommentsUsecase;
   final CreateCommentUsecase _createCommentUsecase;

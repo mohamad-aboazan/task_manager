@@ -10,6 +10,13 @@ import 'package:task_manager_app/features/kanban/presentation/cubit/project_cubi
 import 'package:task_manager_app/features/kanban/presentation/cubit/theme_cubit/theme_cubit.dart';
 import 'package:task_manager_app/features/kanban/presentation/widgets/dialog/color_picker_dialog.dart';
 
+///======================================================================================================
+/// Screen for creating a new project.
+///
+/// This screen allows users to create a new project by providing a project name and choosing a base color
+/// for the project gradient.
+///======================================================================================================
+
 class CreateProjectScreen extends StatefulWidget {
   const CreateProjectScreen({super.key});
 

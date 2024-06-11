@@ -7,6 +7,11 @@ import 'package:task_manager_app/features/kanban/presentation/cubit/theme_cubit/
 import 'package:task_manager_app/features/kanban/presentation/screens/home/home_screen.dart';
 import 'package:task_manager_app/features/kanban/presentation/screens/welcome/welcome_screen.dart';
 
+/// The root widget of the application.
+///
+/// This widget initializes the application and manages its lifecycle.
+/// It fetches the list of projects during initialization and configures the theme.
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 

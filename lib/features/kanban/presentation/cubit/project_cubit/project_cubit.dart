@@ -8,6 +8,24 @@ import 'package:task_manager_app/features/kanban/domain/usercase/project_usecase
 
 part "project_state.dart";
 
+/// ---------------------------------------------------------------------------------------------------------
+/// BLoC for managing projects in the Kanban application.
+///
+/// This BLoC is responsible for handling projects within the Kanban application. It provides functionalities
+/// for creating new projects, retrieving projects, and managing the current project.
+///
+/// Features:
+///   - Retrieve projects from the data source.
+///   - Create new projects.
+///   - Manage the current project.
+///
+/// Usage:
+///   - Instantiate `ProjectBloc` with required use cases.
+///   - Use `getProjects` to retrieve projects.
+///   - Use `createProject` to create a new project.
+///
+///---------------------------------------------------------------------------------------------------------
+///
 class ProjectBloc extends Cubit<ProjectState> {
   final GetProjectsUsecase getProjectsUsecase;
   final GetProjectUsecase getProjectUsecase;

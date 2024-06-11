@@ -5,6 +5,17 @@ import 'package:task_manager_app/features/kanban/data/dto/update_comment_dto.dar
 import 'package:task_manager_app/features/kanban/domain/entities/comment.dart';
 import 'package:task_manager_app/features/kanban/presentation/cubit/comment_cubit/comment_cubit.dart';
 
+///======================================================================================================
+/// Widget for displaying a comment associated with a task.
+///
+/// This widget displays a comment with the user's avatar, content, and posting date. It provides options
+/// to edit or delete the comment. When editing a comment, it opens a dialog to enter the updated comment
+/// content.
+///
+/// Parameters:
+///   - `comment`: The comment to display.
+///======================================================================================================
+
 class CommentWidget extends StatefulWidget {
   final Comment comment;
 

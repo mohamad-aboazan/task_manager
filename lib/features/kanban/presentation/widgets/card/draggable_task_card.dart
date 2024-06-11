@@ -4,10 +4,22 @@ import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
 import 'package:task_manager_app/features/kanban/presentation/screens/tasks/view_task_screen.dart';
 import 'package:task_manager_app/features/kanban/presentation/widgets/card/task_card_widget.dart';
 
+///======================================================================================================
+/// Widget for displaying a draggable task card.
+///
+/// This widget represents a task card that can be dragged horizontally. It contains a task and provides
+/// navigation to view the task details when tapped. When dragged, it updates the horizontal scrolling
+/// position of the parent scroll controller.
+///
+/// Parameters:
+///   - `task`: The task to display on the card.
+///   - `horizontalScrollController`: The horizontal scroll controller for handling dragging.
+///======================================================================================================
+
 class DraggableTaskCard extends StatefulWidget {
   Task task;
-  ScrollController? scrollController;
-  DraggableTaskCard({super.key, required this.task, required this.scrollController});
+  ScrollController? horizontalScrollController;
+  DraggableTaskCard({super.key, required this.task, required this.horizontalScrollController});
 
   @override
   State<DraggableTaskCard> createState() => _DraggableTaskCardState();
@@ -28,18 +40,18 @@ class _DraggableTaskCardState extends State<DraggableTaskCard> {
           child: TaskCard(task: widget.task),
         ),
         onDragStarted: () {
-          scrollingOffset = widget.scrollController!.offset;
+          scrollingOffset = widget.horizontalScrollController!.offset;
         },
         onDragEnd: (details) {
-          widget.scrollController!.jumpTo(
+          widget.horizontalScrollController!.jumpTo(
             scrollingOffset,
           );
         },
         onDragUpdate: (details) {
           // Handle horizontal scrolling
-          if (widget.scrollController!.hasClients) {
-            widget.scrollController!.jumpTo(
-              widget.scrollController!.offset + details.delta.dx,
+          if (widget.horizontalScrollController!.hasClients) {
+            widget.horizontalScrollController!.jumpTo(
+              widget.horizontalScrollController!.offset + details.delta.dx,
             );
           }
         },

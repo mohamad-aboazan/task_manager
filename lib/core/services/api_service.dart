@@ -1,8 +1,13 @@
-// api_service.dart
-
 import 'package:dio/dio.dart';
 import 'package:task_manager_app/core/utils/auth.dart';
 import 'package:task_manager_app/core/utils/endpoints.dart';
+
+///======================================================================================================
+/// Handles API requests and responses using Dio HTTP client.
+///
+/// This class encapsulates methods for making HTTP requests (GET, POST, PUT, DELETE)
+/// to the server and handling their responses.
+///======================================================================================================
 
 class ApiService {
   Dio dio;

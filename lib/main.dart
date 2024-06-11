@@ -12,6 +12,17 @@ import 'package:task_manager_app/features/kanban/presentation/cubit/theme_cubit/
 import 'package:task_manager_app/features/kanban/presentation/cubit/timer_cubit/timer_cubit.dart';
 import 'injection_container.dart' as di;
 
+/// The main entry point of the application.
+/// 
+/// This function initializes various components of the application such as Hive,
+/// Flutter Native Splash, and dependency injection container using GetIt.
+/// 
+/// It then configures and runs the application by wrapping the `MyApp` widget
+/// with `MultiBlocProvider` to provide all the necessary BLoCs to the widget tree.
+/// 
+/// Note: In large projects, BLoCs are not injected at the root of the widget tree,
+/// but rather injected where they are needed, for better organization and management.
+
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();

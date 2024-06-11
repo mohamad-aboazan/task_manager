@@ -4,6 +4,28 @@ import 'package:task_manager_app/features/kanban/data/dto/create_task_dto.dart';
 import 'package:task_manager_app/features/kanban/data/dto/update_task_dto.dart';
 import 'package:task_manager_app/features/kanban/domain/entities/task.dart';
 
+/// =================================================================================================
+/// Remote data source for managing tasks.
+///
+/// This data source handles operations related to tasks through remote API calls using the `ApiService`.
+///
+/// Dependencies:
+///   - `ApiService`: Service for making API calls.
+///   - `Endpoints`: Utility class for defining API endpoints.
+///
+/// Abstract Methods:
+///   - `getTasks`: Fetches all tasks associated with a project from the remote API.
+///   - `createTask`: Creates a new task via the remote API.
+///   - `updateTask`: Updates an existing task via the remote API.
+///   - `getTask`: Fetches a specific task by ID from the remote API.
+///   - `deleteTask`: Deletes a task with the specified ID from the remote API.
+///
+/// Usage:
+///   - Implement the `TaskRemoteDataSource` abstract class with the required methods.
+///   - Utilize `ApiService` to make HTTP requests to the appropriate endpoints for task management.
+///
+/// =================================================================================================
+
 abstract class TaskRemoteDataSource {
   Future<List<Task>> getTasks(String projectId);
   Future<Task> createTask(CreateTaskDto createTaskDto);
